@@ -35,7 +35,7 @@ const FeaturedPlaces = () => {
         }
     };
     return (
-        <div className="py-4 ">
+        <div className="py-4 " data-aos="fade-up">
             <Container>
             <div className="d-flex text-start py-3">
                 <h3><span style={{borderBottom:'2px solid #333'}}>Featured</span> <span style={{color:'#FF5324',borderBottom:'2px solid #FF5324'}}>Places</span></h3>

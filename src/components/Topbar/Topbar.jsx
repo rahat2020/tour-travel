@@ -44,11 +44,9 @@ const Topbar = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto d-flex justify-content-center align-items-center">
-                            <Nav.Link href='/' style={{ fontSize: '.94rem' }} className={Tpath === '/' ? 'activecls text-secondary px-2 p-1' : 'text-secondary px-2 p-1'} >
-                                Home
-                            </Nav.Link>
-                            <Nav.Link href='/blogs' style={{ fontSize: '.94rem' }} className={Tpath === '/blogs' ? 'activecls text-secondary px-2 p-1' : 'text-secondary px-2 p-1'} >
-                                Blogs
+
+                            <Nav.Link href='/all-events' style={{ fontSize: '.94rem' }} className={Tpath === '/all-events' ? 'activecls text-secondary px-2 p-1' : 'text-secondary px-2 p-1'} >
+                                All events
                             </Nav.Link>
                             <Dropdown className='ms-2'>
                                 <Dropdown.Toggle variant="white text-secondary" id="dropdown-basic" size="sm">
@@ -82,21 +80,28 @@ const Topbar = () => {
                                     <Dropdown.Item href="#/action-1">BDT</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
-
+                            <Form className="d-flex">
+                                <Form.Control
+                                    type="search"
+                                    placeholder="Search"
+                                    className="me-2 border-0 shadow-sm"
+                                    aria-label="Search"
+                                />
+                            </Form>
                             <Nav.Link href='#' >
                                 <span className='btn_nav'>List your places</span>
                             </Nav.Link>
 
                             <Nav.Link style={{ fontSize: '.94rem' }}>
                                 <div className="notifications">
-                                    <NotificationsNoneIcon /> 
+                                    <NotificationsNoneIcon />
                                     <span className="notification_num">9</span>
                                 </div>
                             </Nav.Link>
                             <Nav.Link href="#" onClick={handleShow}>
                                 <div className="d-flex justify-content-center align-items-center ">
                                     <span className='nav_profile_con'>
-                                        <PermIdentityIcon className='profileIcon'/>
+                                        <PermIdentityIcon className='profileIcon' />
                                     </span>
                                 </div>
                             </Nav.Link>
@@ -206,6 +211,9 @@ const Topbar = () => {
 
                                     <div className="d-flex justify-content-between align-items-center mt-2">
                                         <Button variant="success fw-bold" size='sm'>Go to Dashboard</Button>
+                                        <Link href="/user-profile" className='text-decoration-none'>
+                                            <Button variant="success fw-bold" size='sm'>Profile</Button>
+                                        </Link>
                                         <Button variant="danger text-white fw-bold" size='sm'>Logout</Button>
                                     </div>
                                 </Card.Body>

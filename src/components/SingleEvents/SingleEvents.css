@@ -1,0 +1,97 @@
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #fff !important;
+    border-color: #FF5324 !important;
+    background-image: linear-gradient(180deg, #FF8F50, #FF5324);
+    box-shadow: #f344146e 0px 3px 54px;
+    border: .2px solid #fff !important;
+}
+.img_container {
+    position: relative;
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
+    border-radius: 15px;
+    width: 100%;
+    height:30rem;
+}
+.img_container .se_img{
+    width: 100%;
+    height:30rem;
+    object-fit: contain;
+    transition: all 0.4s ease-in-out;
+}
+.img_container:hover .se_img {
+    transform: scale(1.1);
+}
+
+.btn_filter{
+    border: none;
+    padding: 8px 25px;
+    text-transform: capitalize;
+    background-image: linear-gradient(180deg, #FF8F50, #FF5324);
+    box-shadow: #f344146e 0px 3px 54px;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 20px;
+    font-size:.84rem;
+  }
+.se_Img_con {
+    position: relative;
+    background-color: #fff !important;
+    overflow: hidden;
+    width: 100%;
+    height: 25rem;
+    transition: all 0.5s ease-in-out;
+}
+.se_Img_con:hover .se_img {
+    transform: scale(1.1);
+ }
+
+.se_Img_con .se_img {
+    width: 100%;
+    height: 25rem;
+    object-fit: fill;
+    transition: all 0.5s ease-in-out;
+    border-radius: 20px !important;
+}
+
+
+.se_Img_con .se_overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    right: 30px;
+    width: 85%;
+    height: 6rem;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    color: #333;
+    transition: all 0.5s ease-in-out;
+    background-color: #fff;
+}
+
+.se_overlay:hover {
+    text-decoration: underline;
+}
+.se_love_con{
+    width: 60px;
+    height: 30px;
+    top: -273px;
+    right: 0;
+    position:absolute;
+    border-radius:30px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.se_love_con .se_icon{
+    font-size: .99rem;
+}
+.se_love_con span{
+    font-size: .99rem;
+    color: #88888d;
+}
