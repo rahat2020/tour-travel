@@ -1,5 +1,5 @@
 "use client"
-import { Button, Card, Carousel, Col, Container, Image, Row } from 'react-bootstrap';
+import { Button, Card, Carousel, Col, Container, Image, Row ,Breadcrumb} from 'react-bootstrap';
 import './SingleEvents.css';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ShareIcon from '@mui/icons-material/Share';
@@ -12,6 +12,11 @@ const SingleEvents = () => {
     return (
         <div className='py-5'>
             <Container>
+                <Breadcrumb className="text-decoration-none">
+                    <Breadcrumb.Item href="/" className="text-decoration-none">Home</Breadcrumb.Item>
+                    <Breadcrumb.Item href="/all-events" className="text-decoration-none">all-events</Breadcrumb.Item>
+                    <Breadcrumb.Item active>book</Breadcrumb.Item>
+                </Breadcrumb>
                 <Row>
                     <Col md={5}>
                         <div className="">
@@ -54,7 +59,9 @@ const SingleEvents = () => {
                                 </span>
                             </p>
                             <div className="d-flex justify-content-between align-items-cetner w-75">
-                                <Button className="btn_filter ms-2">Book events</Button>
+                                <Link href="/book" className="text-decoration-none">
+                                    <Button className="btn_filter ms-2">Book events</Button>
+                                </Link>
                                 <Button className="btn_filter ms-2">$ 350</Button>
                                 <Button className="btn_filter ms-2"><ShareIcon /></Button>
                             </div>

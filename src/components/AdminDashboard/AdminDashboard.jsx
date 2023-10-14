@@ -41,19 +41,22 @@ const AdminDashboard = () => {
                                         <Nav.Link eventKey="second" className="">Update informations</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link eventKey="third" className="">Profile settings</Nav.Link>
+                                        <Nav.Link eventKey="third" className="">User management</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
                                         <Nav.Link eventKey="four" className="">Booked events</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link eventKey="five" className="">Booking history</Nav.Link>
+                                        <Nav.Link eventKey="five" className="">Notifications</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link eventKey="six" className="">Notifications</Nav.Link>
+                                        <Nav.Link eventKey="six" className="">Events</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link eventKey="seven" className="" onClick={handleLogout}>Logout</Nav.Link>
+                                        <Nav.Link eventKey="seven" className="">Events management</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="eight" className="" onClick={handleLogout}>Logout</Nav.Link>
                                     </Nav.Item>
                                 </Nav>
                             </Col>
@@ -159,45 +162,43 @@ const AdminDashboard = () => {
 
                                     <Tab.Pane eventKey="third">
                                         <AdminNav />
-                                        <Form className="border-top py-2 shadow-sm p-3 rounded">
-                                            <Form.Group className="mb-4 d-flex justify-content-center align-items-center flex-column">
-                                                <Form.Label className="text-muted">Image</Form.Label>
-                                                <Image src="/assets/user-1.png"
-                                                    className="shadow"
-                                                    style={{ width: '6rem', height: '6rem', objectFit: 'contain', }} />
-                                            </Form.Group>
-
-                                            <Row className="mb-3">
-                                                <Form.Group as={Col} controlId="formGridEmail">
-                                                    <Form.Label className="text-muted">Email</Form.Label>
-                                                    <Form.Control type="email" placeholder="Enter email" defaultValue="kazi rahat" className="border-0 shadow-sm rounded text-muted" />
-                                                </Form.Group>
-
-                                                <Form.Group as={Col} controlId="formGridPassword">
-                                                    <Form.Label className="text-muted">Password</Form.Label>
-                                                    <Form.Control type="password" placeholder="Password" defaultValue="gahgauhjag" className="border-0 shadow-sm rounded text-muted" />
-                                                </Form.Group>
-                                            </Row>
-
-                                            <Form.Group className="mb-3" controlId="formGridAddress1">
-                                                <Form.Label className="text-muted">Address</Form.Label>
-                                                <Form.Control placeholder="1234 Main St" defaultValue="dhaka, bangladesh" className="border-0 shadow-sm rounded text-muted" />
-                                            </Form.Group>
-                                            <Form.Group className="mb-3" controlId="formGridAddress1">
-                                                <Form.Label className="text-muted">Image</Form.Label>
-                                                <Form.Control type="file" className="border-0 shadow-sm rounded text-muted" />
-                                            </Form.Group>
-
-                                            <Row className="mb-3">
-                                                <Form.Group as={Col} controlId="formGridCity">
-                                                    <Form.Label className="text-muted">City</Form.Label>
-                                                    <Form.Control defaultValue="dhaka" className="border-0 shadow-sm rounded text-muted" />
-                                                </Form.Group>
-                                            </Row>
-                                            <Button className="btn_up" type="submit">
-                                                Update
-                                            </Button>
-                                        </Form>
+                                        <Table striped bordered responsive hover className="rounded shadow-sm mt-4">
+                                            <thead>
+                                                <tr>
+                                                    <th className="text-secondary">S/N</th>
+                                                    <th className="text-secondary">ID</th>
+                                                    <th className="text-secondary">Username</th>
+                                                    <th className="text-secondary text-center">Email</th>
+                                                    <th className="text-secondary text-center">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td className="text-muted">1</td>
+                                                    <td className="text-muted">1</td>
+                                                    <td className="text-muted">Kazi Rahat</td>
+                                                    <td className="text-muted text-center">
+                                                        test@gmail.com
+                                                    </td>
+                                                    <td className="d-flex justify-content-evenly">
+                                                        <Button className="btn_up">Delete</Button>
+                                                        <Button className="btn_edit">Edit</Button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="text-muted">1</td>
+                                                    <td className="text-muted">1</td>
+                                                    <td className="text-muted">Kazi Rahat</td>
+                                                    <td className="text-muted text-center">
+                                                        test@gmail.com
+                                                    </td>
+                                                    <td className="d-flex justify-content-evenly">
+                                                        <Button className="btn_up">Delete</Button>
+                                                        <Button className="btn_edit">Edit</Button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </Table>
                                     </Tab.Pane>
 
                                     <Tab.Pane eventKey="four">
@@ -275,28 +276,112 @@ const AdminDashboard = () => {
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="six">
                                         <AdminNav />
-                                        <Table striped bordered responsive hover className="rounded shadow-sm mt-4">
+                                        <Form className="border-top py-2 shadow-sm p-3 rounded">
+                                            <h5 className="text-muted w-100 border-bottom">Add new events:</h5>
+                                            <Row className="mb-3 gy-2">
+                                                <Col md={6}>
+                                                    <Form.Group controlId="formGridEmail">
+                                                        <Form.Label className="text-muted">Event name</Form.Label>
+                                                        <Form.Control type="text" placeholder="event name" className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group controlId="formGridPassword">
+                                                        <Form.Label className="text-muted">Location</Form.Label>
+                                                        <Form.Control type="text" placeholder="location" className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group controlId="formGridPassword">
+                                                        <Form.Label className="text-muted">Price</Form.Label>
+                                                        <Form.Control type="text" placeholder="price" className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group as={Col} controlId="formGridPassword">
+                                                        <Form.Label className="text-muted">Start Date</Form.Label>
+                                                        <Form.Control type="date" className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group as={Col} controlId="formGridPassword">
+                                                        <Form.Label className="text-muted">End Date</Form.Label>
+                                                        <Form.Control type="date" className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group as={Col} controlId="formGridPassword">
+                                                        <Form.Label className="text-muted">Phone number</Form.Label>
+                                                        <Form.Control type="text" className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group controlId="formGridState">
+                                                        <Form.Label className="text-muted">Availability</Form.Label>
+                                                        <Form.Select className="border-0 shadow-sm rounded text-muted" >
+                                                            <option>Choose status</option>
+                                                            <option>yes</option>
+                                                            <option>no</option>
+                                                        </Form.Select>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group className="mb-3" controlId="formGridAddress1">
+                                                        <Form.Label className="text-muted">Image</Form.Label>
+                                                        <Form.Control type="file" multiple className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+
+
+
+
+
+                                            </Row>
+
+                                            <Form.Group className="mb-3" controlId="formGridAddress1">
+                                                <Form.Label className="text-muted">Address</Form.Label>
+                                                <Form.Control as="textarea" placeholder="1234 Main St" defaultValue="dhaka, bangladesh" className="border-0 shadow-sm rounded text-muted" />
+                                            </Form.Group>
+
+
+                                            <Row className="mb-3">
+                                                <Form.Group as={Col} controlId="formGridCity">
+                                                    <Form.Label className="text-muted">City</Form.Label>
+                                                    <Form.Control defaultValue="dhaka" className="border-0 shadow-sm rounded text-muted" />
+                                                </Form.Group>
+                                            </Row>
+                                            <Button className="btn_up" type="submit">
+                                                Add
+                                            </Button>
+                                        </Form>
+
+                                        <h5 className="text-muted w-100 border-bottom mt-3">All events:</h5>
+                                        <Table striped bordered responsive hover className="rounded shadow-sm mt-2">
                                             <thead>
                                                 <tr>
                                                     <th className="text-secondary">S/N</th>
-                                                    <th className="text-secondary">First Name</th>
                                                     <th className="text-secondary">Event Name</th>
-                                                    <th className="text-secondary">Payment Status</th>
-                                                    <th className="text-secondary text-center">Payment method</th>
+                                                    <th className="text-secondary">Image</th>
+                                                    <th className="text-secondary">Location</th>
+                                                    <th className="text-secondary text-center">Price</th>
+                                                    <th className="text-secondary text-center">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td className="text-muted">1</td>
-                                                    <td className="text-muted">Kazi Rahat</td>
-                                                    <td className="text-muted">Kaptai tour</td>
+                                                    <td className="text-muted">Kaptai river view</td>
                                                     <td className="text-muted">
-                                                        <Button className="btn_paid">half paid</Button>
+                                                        <Image src="/assets/header_four.jpg"
+                                                            style={{ width: '6rem', height: '2rem', objectFit: 'contain', borderRadius: '20px' }} loading="lazy" />
                                                     </td>
-                                                    <td className="text-muted text-center">
-                                                        <Image src="/assets/bkash.png" style={{ width: '3.66rem', height: '3rem', objectFit: 'contain' }} />
+                                                    <td className="text-muted text-center"> kaptai upazila</td>
+                                                    <td className="text-muted text-center">$240</td>
+                                                    <td className="d-flex justify-content-evenly">
+                                                        <Button className="btn_view">view</Button>
+                                                        <Button className="btn_up">Delete</Button>
+                                                        <Button className="btn_edit">Edit</Button>
                                                     </td>
-
                                                 </tr>
                                             </tbody>
                                         </Table>

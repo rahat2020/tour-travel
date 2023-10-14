@@ -5,6 +5,7 @@ import './Services.css';
 import { useState } from "react";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StarIcon from '@mui/icons-material/Star';
+import Link from "next/link";
 
 const Services = () => {
     const [activeOne, setActiveOne] = useState(true)
@@ -150,7 +151,7 @@ const Services = () => {
                         <>
                             <Row>
                                 <Col md={4}>
-                                    <div >
+                                    <Link href="/single-events/1" className="text-decoration-none">
                                         <Card className='s_Img_con bg-white border-0'>
                                             <div className="p-2">
                                                 <Card.Img src='/assets/header_four.jpg' className='s_img' />
@@ -166,7 +167,7 @@ const Services = () => {
                                                 </span>
                                             </Card.Body>
                                         </Card>
-                                    </div>
+                                    </Link>
                                 </Col>
                                 <Col md={4}>
                                     <div >
