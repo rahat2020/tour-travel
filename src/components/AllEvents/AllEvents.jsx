@@ -7,6 +7,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StarIcon from '@mui/icons-material/Star';
 import Link from "next/link";
 import Pagination from 'react-bootstrap/Pagination';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+
+
 
 const AllEvents = () => {
     const [activeOne, setActiveOne] = useState(true)
@@ -94,6 +97,11 @@ const AllEvents = () => {
     return (
         <div className="py-5" data-aos="fade-up">
             <Container>
+                <Breadcrumb  className="text-decoration-none">
+                    <Breadcrumb.Item href="/" className="text-decoration-none">Home</Breadcrumb.Item>
+                    <Breadcrumb.Item active>all-events</Breadcrumb.Item>
+                </Breadcrumb>
+
                 <div className="d-flex justify-content-center align-items-center text-center">
                     <h3><span style={{ borderBottom: '2px solid #333' }}>Go Anywhere</span>  <br /> <span style={{ color: '#FF5324', borderBottom: '2px solid #FF5324' }}> with our latest e-Tour offers</span></h3>
                 </div>

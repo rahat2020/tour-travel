@@ -11,6 +11,7 @@ const AboutHome = () => {
     useEffect(() => {
         AOS.init({ offset: 120, duration: 2000, easing: "easeOut" });
     })
+    
     return (
         <div className="py-4" data-aos="fade-up">
             <Container>

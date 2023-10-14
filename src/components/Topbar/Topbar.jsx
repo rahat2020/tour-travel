@@ -18,8 +18,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import Badge from 'react-bootstrap/Badge';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import Badge from 'react-bootstrap/Badge';
 
 const Topbar = () => {
     const Tpath = window.location.pathname
@@ -210,7 +210,10 @@ const Topbar = () => {
                                     </div>
 
                                     <div className="d-flex justify-content-between align-items-center mt-2">
-                                        <Button variant="success fw-bold" size='sm'>Go to Dashboard</Button>
+
+                                        <Link href="/user-dashboard" className='text-decoration-none'>
+                                            <Button variant="success fw-bold" size='sm'>Go to Dashboard</Button>
+                                        </Link>
                                         <Link href="/user-profile" className='text-decoration-none'>
                                             <Button variant="success fw-bold" size='sm'>Profile</Button>
                                         </Link>
