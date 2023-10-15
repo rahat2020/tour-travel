@@ -18,7 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import { AuthContext } from '@/context/authContext';
+import { AuthContext } from '@/components/context/authContext';
 import { useLoginMutation, useRegisterMutation, useUserDataByEmailQuery } from '@/redux/apiSlice';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';

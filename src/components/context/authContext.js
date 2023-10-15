@@ -3,6 +3,7 @@ import { createContext, useEffect, useReducer } from "react";
 
 
 const INITIAL_STATE = {
+  // user: localStorage.getItem("user") || "",
   user: typeof window !== "undefined" ? localStorage.getItem("user") || "" : "",
   loading: false,
   error: null,

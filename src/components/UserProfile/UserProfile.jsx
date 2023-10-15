@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/navigation";
 import { useUpdateUserMutation, useUserDataByEmailQuery } from "@/redux/apiSlice";
-import { AuthContext } from "@/context/authContext";
+import { AuthContext } from "@/components/context/authContext";
 import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 
