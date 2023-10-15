@@ -1,23 +1,14 @@
 "use client"
-import { Button, Card, Col, Container, Form, Row, Spinner } from "react-bootstrap"
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import { Container, Spinner } from "react-bootstrap"
 import './AllEvents.css';
-import { useState } from "react";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import StarIcon from '@mui/icons-material/Star';
-import Link from "next/link";
-import Pagination from 'react-bootstrap/Pagination';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useGetAllPostQuery } from "@/redux/apiSlice";
 import EventsPaginations from "./EventsPaginations";
 
 
-
 const AllEvents = () => {
     const { data, isLoading } = useGetAllPostQuery()
     const locations = window.location.pathname
-
-
     return (
         <div className="py-5" data-aos="fade-up">
             <Container>
