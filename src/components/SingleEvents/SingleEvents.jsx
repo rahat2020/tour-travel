@@ -1,5 +1,5 @@
 "use client"
-import { Button, Card, Carousel, Col, Container, Image, Row ,Breadcrumb} from 'react-bootstrap';
+import { Button, Card, Carousel, Col, Container, Image, Row, Breadcrumb } from 'react-bootstrap';
 import './SingleEvents.css';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ShareIcon from '@mui/icons-material/Share';
@@ -7,14 +7,33 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import StarIcon from '@mui/icons-material/Star';
 import Link from 'next/link';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useGetSinglePostQuery, useUserDataByEmailQuery } from '@/redux/apiSlice';
 
-const SingleEvents = () => {
+const SingleEvents = ({ params }) => {
+    const userEmail = localStorage.getItem('user') || '';
+    const { data: userData } = useUserDataByEmailQuery(userEmail)
+    const { data } = useGetSinglePostQuery(params)
+    console.log(data)
+    const handleShared = (event) => {
+        event.preventDefault();
+        toast('Event shared successfully!')
+    }
+
+    const locations = window.location.pathname
+
+    const handleBook = (event) => {
+        event.preventDefault();
+        toast('Please login to book an event, thank you!')
+    }
+
     return (
         <div className='py-5'>
             <Container>
                 <Breadcrumb className="text-decoration-none">
                     <Breadcrumb.Item href="/" className="text-decoration-none">Home</Breadcrumb.Item>
-                    <Breadcrumb.Item href="/all-events" className="text-decoration-none">all-events</Breadcrumb.Item>
+                    <Breadcrumb.Item href={locations} className="text-decoration-none">{locations}</Breadcrumb.Item>
                     <Breadcrumb.Item active>book</Breadcrumb.Item>
                 </Breadcrumb>
                 <Row>
@@ -23,18 +42,18 @@ const SingleEvents = () => {
                             <Carousel data-bs-theme="light" fade indicators={false} >
                                 <Carousel.Item>
                                     <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
-                                        <Image src="/assets/header_img.png" className='se_img'
+                                        <Image src={data?.photos[0] ? data?.photos[0] : "/assets/header_img.png"} className='se_img'
                                             style={{ borderRadius: '20px', objectFit: 'cover' }} loading='lazy' />
                                     </div>
                                 </Carousel.Item>
                                 <Carousel.Item>
                                     <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
-                                        <Image src="/assets/header_four.jpg" alt='kaptai' className='se_img shadow-sm' loading='lazy' />
+                                        <Image src={data?.photos[1] ? data?.photos[1] : "/assets/header_four.jpg"} alt='kaptai' className='se_img shadow-sm' loading='lazy' />
                                     </div>
                                 </Carousel.Item>
                                 <Carousel.Item>
                                     <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
-                                        <Image src="/assets/header_three.jpg" alt='ranngamati' className='se_img shadow-sm' loading='lazy' />
+                                        <Image src={data?.photos[2] ? data?.photos[2] : "/assets/header_three.jpg"} alt='ranngamati' className='se_img shadow-sm' loading='lazy' />
                                     </div>
                                 </Carousel.Item>
                             </Carousel>
@@ -42,11 +61,11 @@ const SingleEvents = () => {
                     </Col>
                     <Col md={7}>
                         <div className="d-flex flex-column justify-content-start align-items-cetner shadow-sm p-2">
-                            <h1>Beauty of deep nature, Billions of stories.</h1>
-                            <p style={{ color: '#939A9C', fontSize: '.88rem' }}><LocationOnIcon style={{ fontSize: '.88rem' }} /> Scotland</p>
-                            <p style={{ color: '#939A9C', fontSize: '.88rem' }}><LocalPhoneIcon style={{ fontSize: '.88rem' }} /> Phone: <strong>0091541141156</strong></p>
-                            <p style={{ color: '#939A9C', fontSize: '.88rem' }}><InventoryIcon style={{ fontSize: '.88rem' }} /> Availability: <strong>yes</strong></p>
-                            <p className="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam minus atque quas. Quidem dignissimos in pariatur neque explicabo inventore officiis labore nihil molestiae fuga porro quam corrupti voluptatum possimus natus harum, at, dolor cum deserunt. Eveniet aut quisquam voluptate odit.</p>
+                            <h1>{data?.title}</h1>
+                            <p style={{ color: '#939A9C', fontSize: '.88rem' }}><LocationOnIcon style={{ fontSize: '.88rem' }} /> {data?.location}</p>
+                            <p style={{ color: '#939A9C', fontSize: '.88rem' }}><LocalPhoneIcon style={{ fontSize: '.88rem' }} /> Phone: <strong>{data?.phone}</strong></p>
+                            <p style={{ color: '#939A9C', fontSize: '.88rem' }}><InventoryIcon style={{ fontSize: '.88rem' }} /> Availability: <strong>{data?.available}</strong></p>
+                            <p className="text-muted">{data?.desc}.</p>
                             <p className="d-flex align-items-center justify-content-start">
                                 <span>
                                     <StarIcon style={{ color: '#FF5857', fontSize: '1rem' }} className="se_icon" />
@@ -59,11 +78,16 @@ const SingleEvents = () => {
                                 </span>
                             </p>
                             <div className="d-flex justify-content-between align-items-cetner w-75">
-                                <Link href="/book" className="text-decoration-none">
-                                    <Button className="btn_filter ms-2">Book events</Button>
-                                </Link>
-                                <Button className="btn_filter ms-2">$ 350</Button>
-                                <Button className="btn_filter ms-2"><ShareIcon /></Button>
+                                {
+                                    !userData ? <Button className="btn_filter ms-adgj2" onClick={handleBook}>Book events</Button>
+                                        :
+                                        <Link href={`/book/${data?._id}`} className="text-decoration-none">
+                                            <Button className="btn_filter ms-adgj2">Book events</Button>
+                                        </Link>
+                                }
+
+                                <Button className="btn_filter ms-2">$ {data?.price}</Button>
+                                <Button className="btn_filter ms-2" onClick={handleShared}><ShareIcon /></Button>
                             </div>
                         </div>
                     </Col>
@@ -131,6 +155,8 @@ const SingleEvents = () => {
                             </Link>
                         </Col>
                     </Row>
+
+                    <ToastContainer />
                 </div>
             </Container>
         </div>

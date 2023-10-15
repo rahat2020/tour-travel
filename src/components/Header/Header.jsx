@@ -1,7 +1,7 @@
 "use client"
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row,Image } from 'react-bootstrap';
 import './Header.css';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Tab from 'react-bootstrap/Tab';
 import Form from 'react-bootstrap/Form';
 import Tabs from 'react-bootstrap/Tabs';
@@ -15,7 +15,7 @@ const Header = () => {
     return (
         <div className='py-5'>
             <Container>
-                <Row>
+                <Row className='gy-2'>
                     <Col md={7}>
                         <div className="p-3 text-start" >
                             <h1 className='fw-bold text-capitalize '>life is short, </h1>
@@ -106,11 +106,12 @@ const Header = () => {
                         </div>
                     </Col>
                     <Col md={5}>
-                        <div className="d-flex justify-content-end align-items-center">
+                        <div className="">
                             <Carousel data-bs-theme="light" fade indicators={false} >
                                 <Carousel.Item>
                                     <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
-                                        <Image src="/assets/header_img.png" width={450} height={500} 
+                                        <Image src="/assets/header_img.png" 
+                                        className='feature_left'
                                         style={{ borderRadius: '20px', objectFit: 'cover' }} loading='lazy'/>
                                         <div className="overlay">
                                             <small className='category'>Scotland</small>
@@ -120,7 +121,7 @@ const Header = () => {
                                 </Carousel.Item>
                                 <Carousel.Item>
                                     <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
-                                        <Image src="/assets/header_four.jpg" alt='kaptai' width={450} height={500} className='feature_left shadow-sm' loading='lazy' />
+                                        <Image src="/assets/header_four.jpg" alt='kaptai'  className='feature_left shadow-sm' loading='lazy' />
                                         <div className="overlay">
                                             <small className='category'>Kaptai</small>
                                             <h3>A lake of nature beauty</h3>
@@ -129,7 +130,8 @@ const Header = () => {
                                 </Carousel.Item>
                                 <Carousel.Item>
                                     <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
-                                        <Image src="/assets/herader_three.jpg" alt='ranngamati' width={450} height={500} className='feature_left shadow-sm' loading='lazy' />
+                                        <Image src="/assets/header_three.jpg" alt='ranngamati' 
+                                        className='feature_left shadow-sm' loading='lazy' />
                                         <div className="overlay">
                                             <small className='category'>Rangamati</small>
                                             <h3>A nature heaven belongs to Rangamati</h3>

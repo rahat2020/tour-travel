@@ -9,7 +9,7 @@ export const metadata = {
 const page = ({params}) => {
     return (
         <div>
-            <SingleEvents />
+            <SingleEvents params={params.id}/>
         </div>
     )
 }

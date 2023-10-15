@@ -14,19 +14,106 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import DashboardNav from "./DashboardNav";
+import { useUpdateUserMutation, useUserDataByEmailQuery } from "@/redux/apiSlice";
+import Swal from "sweetalert2";
+import { useState } from "react";
 
 const UserDashboard = () => {
+    const userEmail = localStorage.getItem('user') || '';
+    const { data: userData } = useUserDataByEmailQuery(userEmail)
+    console.log('userData', userData)
     const router = useRouter()
     const handleLogout = (event) => {
         event.preventDefault();
         toast('Logout successfully!')
         router.push('/')
     }
+    if (!userEmail) {
+        router.push('/')
+    }
+
+    // handle form submit
+    const [UpdateUser] = useUpdateUserMutation()
+    const [username, setUserName] = useState(userData?.username || "")
+    const [password, setUser_Password] = useState(userData?.password || "")
+    const [email, setUser_Email] = useState(userData?.email || "")
+    const [file, setUser_Photo] = useState(userData?.photo || "")
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            if (file === '') {
+                const Object = {
+                    id: userData?._id,
+                    userId: userData?._id,
+                    username: username || userData?.username || "",
+                    password: password || userData?.password || "",
+                    email: email || userData?.email || "",
+                    photo: file || userData?.photo || "",
+                    role: userData?.role,
+                    terms: userData?.terms
+
+                }
+                console.log('object', Object)
+                const res = await UpdateUser(Object)
+                if (res?.data?.message === "user updated") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'User updated successfully',
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'User Update failed',
+                    })
+                }
+
+            } else if (file) {
+                const data = new FormData();
+                data.append("file", file);
+                data.append("upload_preset", "upload");
+                const uploadRes = await axios.post("https://api.cloudinary.com/v1_1/rahatdev1020/image/upload", data);
+                const { url } = uploadRes.data;
+                const Object = {
+                    id: item?._id,
+                    userId: item?._id,
+                    username: username || item?.username || "",
+                    password: password || item?.password || "",
+                    email: email || item?.email || "",
+                    photo: url || item?.photo || "",
+                    role: role || item?.role || "",
+                }
+                const res = await UpdateUser(Object)
+                console.log('res', res)
+                if (res?.data?.message === "user updated") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Profile updated successfully',
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'User Update failed',
+                    })
+                }
+            }
+
+        } catch (err) {
+            console.log(err)
+
+            err && Swal.fire({
+                icon: 'error',
+                title: 'Input operations failed',
+            })
+        }
+
+    }
+
+
     return (
         <div className="py-5" data-aos="fade-up">
             <Container>
                 <div className="d-flex text-start py-3">
-                    <h3 className="text-capitalize"><span style={{ borderBottom: '2px solid #333' }}>Rahat</span> <span style={{ color: '#FF5324', borderBottom: '2px solid #FF5324' }}>your dahsboard</span></h3>
+                    <h3 className="text-capitalize"><span style={{ borderBottom: '2px solid #333' }}>{userData?.username}</span> <span style={{ color: '#FF5324', borderBottom: '2px solid #FF5324' }}>your dahsboard</span></h3>
                 </div>
 
                 <div className="shadow p-3">
@@ -61,99 +148,101 @@ const UserDashboard = () => {
                                 <Tab.Content>
                                     <Tab.Pane eventKey="first">
                                         <DashboardNav />
-                                        <Form className="border-top py-3 shadow-sm p-3 rounded">
-                                            <Row className="mb-3">
-                                                <Form.Group as={Col} controlId="formGridEmail">
-                                                    <Form.Label className="text-muted">Email</Form.Label>
-                                                    <Form.Control type="email" placeholder="Enter email" defaultValue="kazi rahat" className="border-0 shadow-sm rounded text-muted" />
-                                                </Form.Group>
-
-                                                <Form.Group as={Col} controlId="formGridPassword">
-                                                    <Form.Label className="text-muted">Password</Form.Label>
-                                                    <Form.Control type="password" placeholder="Password" defaultValue="gahgauhjag" className="border-0 shadow-sm rounded text-muted" />
-                                                </Form.Group>
+                                        <Form className="border-top py-2 shadow-sm p-3 rounded">
+                                            <Row className="mb-3 gy-3">
+                                                <Col md={4}>
+                                                    <Form.Group controlId="formGridEmail">
+                                                        <Form.Label className="text-muted">Username</Form.Label>
+                                                        <Form.Control type="email" placeholder="Enter email" defaultValue={userData?.username} className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={4}>
+                                                    <Form.Group controlId="formGridEmail">
+                                                        <Form.Label className="text-muted">Email</Form.Label>
+                                                        <Form.Control type="email" placeholder="Enter email" defaultValue={userData?.email} className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={4}>
+                                                    <Form.Group controlId="formGridPassword">
+                                                        <Form.Label className="text-muted">Password</Form.Label>
+                                                        <Form.Control type="password" placeholder="Password" defaultValue={userData?.password} className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group className="mb-3" controlId="formGridAddress1">
+                                                        <Form.Label className="text-muted">Address</Form.Label>
+                                                        <Form.Control placeholder="1234 Main St" defaultValue="dhaka, bangladesh" className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Row className="mb-3">
+                                                        <Form.Group as={Col} controlId="formGridCity">
+                                                            <Form.Label className="text-muted">City</Form.Label>
+                                                            <Form.Control defaultValue="dhaka" className="border-0 shadow-sm rounded text-muted" />
+                                                        </Form.Group>
+                                                    </Row>
+                                                </Col>
                                             </Row>
-
-                                            <Form.Group className="mb-3" controlId="formGridAddress1">
-                                                <Form.Label className="text-muted">Address</Form.Label>
-                                                <Form.Control placeholder="1234 Main St" defaultValue="dhaka, bangladesh" className="border-0 shadow-sm rounded text-muted" />
-                                            </Form.Group>
-
-                                            <Row className="mb-3">
-                                                <Form.Group as={Col} controlId="formGridCity">
-                                                    <Form.Label className="text-muted">City</Form.Label>
-                                                    <Form.Control defaultValue="dhaka" className="border-0 shadow-sm rounded text-muted" />
-                                                </Form.Group>
-                                            </Row>
-                                            <div className="py-3">
-                                                <h4 className="text-secondary">Activities:</h4>
-                                                <Table striped bordered responsive hover className="rounded shadow-sm">
-                                                    <thead>
-                                                        <tr>
-                                                            <th className="text-secondary">S/N</th>
-                                                            <th className="text-secondary">Name</th>
-                                                            <th className="text-secondary">Last login</th>
-                                                            <th className="text-secondary">Profile Updated</th>
-                                                            <th className="text-secondary">Notifications</th>
-                                                            <th className="text-secondary">Total Comments</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td className="text-muted">1</td>
-                                                            <td className="text-muted">Kazi Rahat</td>
-                                                            <td className="text-muted">14/10/2024 10:34AM</td>
-                                                            <td className="text-muted">14/10/2024 10:34AM</td>
-                                                            <td className="text-muted">12</td>
-                                                            <td className="text-muted">25</td>
-                                                        </tr>
-
-                                                    </tbody>
-                                                </Table>
-                                            </div>
                                         </Form>
                                     </Tab.Pane>
 
                                     <Tab.Pane eventKey="second">
                                         <DashboardNav />
                                         <Form className="border-top py-2 shadow-sm p-3 rounded">
-                                            <Form.Group className="mb-4 d-flex justify-content-center align-items-center flex-column">
-                                                <Form.Label className="text-muted">Image</Form.Label>
-                                                <Image src="/assets/user-1.png"
-                                                    className="shadow"
-                                                    style={{ width: '6rem', height: '6rem', objectFit: 'contain', }} />
-                                            </Form.Group>
-
-                                            <Row className="mb-3">
-                                                <Form.Group as={Col} controlId="formGridEmail">
-                                                    <Form.Label className="text-muted">Email</Form.Label>
-                                                    <Form.Control type="email" placeholder="Enter email" defaultValue="kazi rahat" className="border-0 shadow-sm rounded text-muted" />
-                                                </Form.Group>
-
-                                                <Form.Group as={Col} controlId="formGridPassword">
-                                                    <Form.Label className="text-muted">Password</Form.Label>
-                                                    <Form.Control type="password" placeholder="Password" defaultValue="gahgauhjag" className="border-0 shadow-sm rounded text-muted" />
-                                                </Form.Group>
+                                            <Row className="mb-3 gy-3">
+                                                <Col md={6}>
+                                                    <Form.Group controlId="formGridEmail">
+                                                        <Form.Label className="text-muted">Username</Form.Label>
+                                                        <Form.Control type="email" placeholder="Enter email" defaultValue={userData?.username} className="border-0 shadow-sm rounded text-muted"
+                                                            onChange={(e) => setUserName(e.target.value)} />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group controlId="formGridEmail">
+                                                        <Form.Label className="text-muted">Email</Form.Label>
+                                                        <Form.Control type="email" placeholder="Enter email"
+                                                            defaultValue={userData?.email} className="border-0 shadow-sm rounded text-muted"
+                                                            onChange={(e) => setUser_Email(e.target.value)}
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group controlId="formGridPassword">
+                                                        <Form.Label className="text-muted">Password</Form.Label>
+                                                        <Form.Control type="password" placeholder="Password"
+                                                            defaultValue={userData?.password}
+                                                            className="border-0 shadow-sm rounded text-muted"
+                                                            onChange={(e) => setUser_Password(e.target.value)}
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group className="mb-3" controlId="formGridAddress1">
+                                                        <Form.Label className="text-muted">Address</Form.Label>
+                                                        <Form.Control placeholder="1234 Main St" defaultValue="dhaka, bangladesh" className="border-0 shadow-sm rounded text-muted" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group className="mb-3" controlId="formGridAddress1">
+                                                        <Form.Label className="text-muted">Image</Form.Label>
+                                                        <Form.Control type="file" className="border-0 shadow-sm rounded text-muted"
+                                                            onChange={(e) => setUser_Photo(e.target.value)}
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Row className="mb-3">
+                                                        <Form.Group as={Col} controlId="formGridCity">
+                                                            <Form.Label className="text-muted">City</Form.Label>
+                                                            <Form.Control defaultValue="dhaka" className="border-0 shadow-sm rounded text-muted" />
+                                                        </Form.Group>
+                                                    </Row>
+                                                </Col>
+                                                <Col md={12}>
+                                                    <Button variant="outline-secondary w-100 text-capitalize" size="sm"
+                                                        onClick={handleSubmit}>update</Button>
+                                                </Col>
                                             </Row>
-
-                                            <Form.Group className="mb-3" controlId="formGridAddress1">
-                                                <Form.Label className="text-muted">Address</Form.Label>
-                                                <Form.Control placeholder="1234 Main St" defaultValue="dhaka, bangladesh" className="border-0 shadow-sm rounded text-muted" />
-                                            </Form.Group>
-                                            <Form.Group className="mb-3" controlId="formGridAddress1">
-                                                <Form.Label className="text-muted">Image</Form.Label>
-                                                <Form.Control type="file" className="border-0 shadow-sm rounded text-muted" />
-                                            </Form.Group>
-
-                                            <Row className="mb-3">
-                                                <Form.Group as={Col} controlId="formGridCity">
-                                                    <Form.Label className="text-muted">City</Form.Label>
-                                                    <Form.Control defaultValue="dhaka" className="border-0 shadow-sm rounded text-muted" />
-                                                </Form.Group>
-                                            </Row>
-                                            <Button className="btn_up" type="submit">
-                                                Update
-                                            </Button>
                                         </Form>
                                     </Tab.Pane>
 

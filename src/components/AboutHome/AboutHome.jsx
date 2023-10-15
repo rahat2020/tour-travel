@@ -9,7 +9,7 @@ import Image from 'next/image';
 const AboutHome = () => {
     // ANIMATE ON SCROLL
     useEffect(() => {
-        AOS.init({ offset: 120, duration: 2000, easing: "easeOut" });
+        AOS.init({ offset: 120, duration: 1000, easing: "easeOut" });
     })
     
     return (

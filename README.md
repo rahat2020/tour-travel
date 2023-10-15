@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## TRAVEL AND TOUR:
 
-First, run the development server:
+## DEMOSTRATION VIDEO:
+- [Video](https://www.loom.com/share/b912d43a00b346d5a8b0bf4971b5fa6a?sid=a3f54156-d742-4bb2-acea-77c195e99120) 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## IMPLEMENTED ALL FEATURES IN TRAVEL TOUR:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# GLOBAL 
+- Login 
+- Registration in sidebar from topbar right profile icon click and will open sidebar.
+- Protected route ( Admin and user profile and user dashboard)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# HOME PAGE FEATURED
+- Home page
+- Navigation Menu
+- Search Bar
+- Featured Places
+- Testimonials slider
+- About Us
+- Detailed Footer menu
+- Book ad
+- Featured video
+- Go to top component
+- Detailed Footer
 
-## Learn More
+# ALL EVENTS
+- Dynamic search bar
+- Filtering options
+- Responsoive events Cards
+- Dynamic data fetching
+- Paginations
 
-To learn more about Next.js, take a look at the following resources:
+# SINGLE EVENTS DETAILS
+- Dynamic single events
+- Events images in slider
+- Events title, location, price, rating, description, phone
+- Share button
+- Book button
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# BOOKING PAGE
+- Events images 
+- Events title, location, price, rating, description, phone
+- User details
+- Payments options
+- Event Reserve button
+- Book button
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# USER DASHBOARD
+- User activites
+- Update user informations
+- Profile settings 
+- Booking history dummy data
+- Payments method duymm data
+- Feedback form
+- Logout options
 
-## Deploy on Vercel
+# ADMIN DASHBOARD
+- User activites
+- Update user informations
+- User management dynamic 
+- Can delete and update user informations
+- Book events dummy data
+- Notifications center
+- Events managements where admin can create, view and  delete events.
+- Logout options
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

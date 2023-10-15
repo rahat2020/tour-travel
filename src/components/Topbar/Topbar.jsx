@@ -20,17 +20,133 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import Badge from 'react-bootstrap/Badge';
+import { AuthContext } from '@/context/authContext';
+import { useGetUserDataQuery, useLoginMutation, useRegisterMutation, useUserDataByEmailQuery } from '@/redux/apiSlice';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 const Topbar = () => {
+    const [LoginData] = useLoginMutation()
+    const [RegisterData] = useRegisterMutation()
     const Tpath = window.location.pathname
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+
+    // LOGIN PARTS
+    const { dispatch } = useContext(AuthContext)
+    const [username, setUserName] = useState("")
+    const [password, setUser_Password] = useState("")
+    const userEmail = localStorage.getItem('user') || '';
+    const ifUareA = localStorage.getItem('ifura') || '';
+    const { data: userData } = useUserDataByEmailQuery(userEmail)
+    const router = useRouter()
+    // const userArray = [userData]
+
+    console.log('topbar', userData?.email)
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        const object = {
+            username,
+            password
+        }
+        if (!username || !password) {
+            toast('Field can not be empty')
+        } else if (password.length <= 6) {
+            toast('Password must greater than 6 characters')
+        } else {
+            try {
+                const res = await LoginData(object)
+                console.log('login', res)
+                if (res?.data?.message === "Login successful") {
+                    toast('Logged in Successfully')
+                    dispatch({ type: "LOGIN_SUCCESS", payload: res?.data?.email });
+                    if (res?.data?.role === 'admin') {
+                        localStorage.setItem("ifura", "su")
+                    }
+                    if (res?.data?.role === 'user') {
+                        localStorage.setItem("ifura", "nu")
+                    }
+                    router.push('/user-profile')
+
+                } else if (res?.error?.data === "wrong credentials") {
+                    toast('User not found')
+                } else {
+                    toast('Login Failed')
+                }
+            } catch (e) {
+                console.log(e)
+                e && toast('Login Failed')
+            }
+        }
+    }
+
+    // REGISTER 
     const [usernameReg, setUserNameReg] = useState("")
     const [passwordReg, setUser_PasswordReg] = useState("")
     const [email, setUser_Email] = useState("")
     const [file, setFile] = useState("")
-    const userData = 'rahat'
+    const [terms, setUser_Terms] = useState("")
+    const [role, setRole] = useState("")
+    // console.log('terms', terms)
+
+    const handleRegistration = async (e) => {
+        e.preventDefault()
+        if (!usernameReg || !passwordReg || !email || !file || !terms) {
+            toast('Field can not be empty')
+        } else if (passwordReg.length <= 6) {
+            toast('Password must greater than 6 characters')
+        } else {
+            try {
+                const data = new FormData();
+                data.append("file", file);
+                data.append("upload_preset", "upload");
+                const uploadRes = await axios.post("https://api.cloudinary.com/v1_1/rahatdev1020/image/upload", data)
+                const { url } = uploadRes.data
+                console.log('cloudinary', url)
+                const object = {
+                    username: usernameReg,
+                    password: passwordReg,
+                    email,
+                    photo: url,
+                    role,
+                    terms,
+                }
+                const res = await RegisterData(object)
+                console.log('register', res)
+                if (res?.data === "registration successfull") {
+                    toast('Registration Successfull, now login to access the profile')
+                } else if (res.error.status === 400) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Registration Failed',
+                        text: `${res.error.data}`
+                    })
+                }
+            } catch (e) {
+                console.log(e)
+                e && Swal.fire({
+                    icon: 'error',
+                    title: 'Registration Failed',
+                })
+            }
+        }
+    }
+
+    // LOGOUT
+    const handleLogout = () => {
+        dispatch({ type: "LOGOUT" })
+        Swal.fire({
+            icon: 'success',
+            title: 'Thanks for being with us',
+        })
+        localStorage.removeItem("ifura")
+        window.location.reload()
+        router.push('/')
+    }
+
 
     return (
         <div>
@@ -113,11 +229,14 @@ const Topbar = () => {
             <Offcanvas show={show} onHide={handleClose} end>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>
-                        User panel
+                        {
+                            userData === '' ? <span className=' text-secondary'>Welcome, start your journey from here!</span> : 'User panel'
+                        }
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     {
+
                         !userData ?
                             <Tabs
                                 defaultActiveKey="login"
@@ -138,8 +257,9 @@ const Topbar = () => {
                                                 onChange={(e) => setUser_Password(e.target.value)}
                                             />
                                         </Form.Group>
+
                                         <div className="d-grid w-100">
-                                            <Button variant="outline-secondary fw-bold border-0 shadow rounded" type="submit">
+                                            <Button variant="outline-secondary fw-bold border-0 shadow rounded" type="submit" onClick={handleLogin}>
                                                 Login
                                             </Button>
                                         </div>
@@ -162,7 +282,8 @@ const Topbar = () => {
                                             />
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Control type="file" className='border-0 rounded shadow' onChange={(e) => setFile(e.target.files[0])} />
+                                            <Form.Control type="file" className='border-0 rounded shadow text-muted'
+                                                onChange={(e) => setFile(e.target.files[0])} />
                                         </Form.Group>
                                         <Form.Group className="mb-4" controlId="formBasicPassword">
                                             <Form.Control type="password" placeholder="Password"
@@ -170,8 +291,25 @@ const Topbar = () => {
                                                 onChange={(e) => setUser_PasswordReg(e.target.value)}
                                             />
                                         </Form.Group>
+                                        <Form.Group controlId="formGridState" className="mb-3">
+                                            <Form.Select onChange={(e)=>setRole(e.target.value)} className='border-0 rounded shadow text-muted'>
+                                                <option>Choose user role</option>
+                                                <option>admin</option>
+                                                <option>user</option>
+                                            </Form.Select>
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" id="formGridCheckbox">
+                                            <Form.Check type="checkbox"
+                                                label="I accept terms & conditions"
+                                                onClick={() => setUser_Terms('yes')}
+                                            />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" id="formGridCheckbox">
+                                            <Link href="/privacy-policy">Read Privacy Policy</Link>
+                                        </Form.Group>
                                         <div className="d-grid w-100">
-                                            <Button variant="outline-secondary fw-bold border-0 shadow rounded" type="submit">
+                                            <Button variant="outline-secondary fw-bold border-0 shadow rounded" type="submit"
+                                                onClick={handleRegistration}>
                                                 Registration
                                             </Button>
                                         </div>
@@ -182,7 +320,7 @@ const Topbar = () => {
                             :
                             <Card className='border-0 shadow'>
                                 <div className="d-flex justify-content-center align-items-center p-2">
-                                    <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf9DBm4up7xkDQKhfO1kvAAwU8Grk36ZywnngllVU&s"
+                                    <Card.Img variant="top" src={userData?.photo ? userData?.photo : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf9DBm4up7xkDQKhfO1kvAAwU8Grk36ZywnngllVU&s"}
                                         style={{ width: '8rem', height: '8rem', objectFit: 'cover', borderRadius: '50%' }}
                                         alt="Rahat"
                                     />
@@ -190,7 +328,7 @@ const Topbar = () => {
                                 <Card.Body>
                                     <div className="d-flex justify-content-between align-items-center">
                                         <Card.Title className='text-secondary'>Name:</Card.Title>
-                                        <Card.Title className='text-secondary'>{userData}</Card.Title>
+                                        <Card.Title className='text-secondary'>{userData?.username}</Card.Title>
                                     </div>
                                     <div className="d-flex justify-content-between align-items-center">
                                         <Card.Title className='text-secondary'>Status:</Card.Title>
@@ -200,24 +338,22 @@ const Topbar = () => {
                                         <Card.Title className='text-secondary'>Total Posts:</Card.Title>
                                         <Card.Title className='text-secondary'>9</Card.Title>
                                     </div>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <Card.Title className='text-secondary'>Total Likes:</Card.Title>
-                                        <Card.Title className='text-secondary'>12</Card.Title>
-                                    </div>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <Card.Title className='text-secondary'>Total Comments:</Card.Title>
-                                        <Card.Title className='text-secondary'>15</Card.Title>
-                                    </div>
 
                                     <div className="d-flex justify-content-between align-items-center mt-2">
-
-                                        <Link href="/user-dashboard" className='text-decoration-none'>
-                                            <Button variant="success fw-bold" size='sm'>Go to Dashboard</Button>
-                                        </Link>
+                                        {
+                                            ifUareA === "su" ?
+                                                <Link href="/super-dashboard" className='text-decoration-none'>
+                                                    <Button variant="success fw-bold" size='sm'>Go to Dashboard</Button>
+                                                </Link>
+                                                :
+                                                <Link href="/user-dashboard" className='text-decoration-none'>
+                                                    <Button variant="success fw-bold" size='sm'>Go to Dashboard</Button>
+                                                </Link>
+                                        }
                                         <Link href="/user-profile" className='text-decoration-none'>
                                             <Button variant="success fw-bold" size='sm'>Profile</Button>
                                         </Link>
-                                        <Button variant="danger text-white fw-bold" size='sm'>Logout</Button>
+                                        <Button variant="danger text-white fw-bold" size='sm' onClick={handleLogout}>Logout</Button>
                                     </div>
                                 </Card.Body>
                             </Card>

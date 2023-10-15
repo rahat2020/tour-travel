@@ -1,10 +1,10 @@
 import Booking from '@/components/Booking/Booking'
 import React from 'react'
 
-const page = () => {
+const page = ({params}) => {
   return (
     <div>
-        <Booking/>
+        <Booking  params={params.id}/>
     </div>
   )
 }

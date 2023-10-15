@@ -48,7 +48,7 @@ const FeaturedVideos = () => {
                 <div className="py-4">
                     <Row>
                         <Col md={3}>
-                            <div className="d-flex justify-content-start align-items-end">
+                            <div className="d-flex justify-content-center align-items-end">
                                 <PeopleIcon style={{ fontSize: '2.33rem', color:'#FF5324' }} />
                                 <span className="ms-2 fs-3 text-center">3354</span>
                                 <h6 className="ms-2 fs-6 text-center" style={{ color: '#939A9C' }}>Flights</h6>
@@ -69,7 +69,7 @@ const FeaturedVideos = () => {
                             </div>
                         </Col>
                         <Col md={3}>
-                            <div className="d-flex justify-content-end align-items-end">
+                            <div className="d-flex justify-content-center align-items-end">
                                 <StarIcon style={{ fontSize: '2.33rem', color:'#FF5324' }} />
                                 <span className="ms-2 fs-3 text-center">654</span>
                                 <h6 className="ms-2 fs-6 text-center" style={{ color: '#939A9C' }}>5 Stars</h6>

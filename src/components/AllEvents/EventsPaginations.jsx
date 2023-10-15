@@ -1,15 +1,19 @@
 "use client"
-import { Card, Col, Container, Row, Spinner } from "react-bootstrap"
+import { Button, Card, Col, Container, Form, Row, Spinner } from "react-bootstrap"
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import './Services.css';
+import './AllEvents.css';
 import { useState } from "react";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StarIcon from '@mui/icons-material/Star';
 import Link from "next/link";
+import Pagination from 'react-bootstrap/Pagination';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useGetAllPostQuery } from "@/redux/apiSlice";
+import ReactPaginate from 'react-paginate';
+import './Paginations.css';
 
-const Services = () => {
-    const { data: allPoost, isLoading } = useGetAllPostQuery()
+const EventsPaginations = (props) => {
+    // const { data: allPoost, isLoading } = useGetAllPostQuery()
     const [activeOne, setActiveOne] = useState(true)
     const [activeTwo, setActiveTwo] = useState(false)
     const [activeThree, setActiveThree] = useState(false)
@@ -18,6 +22,29 @@ const Services = () => {
     const [activeSix, setActiveSix] = useState(false)
     const [activeSeven, setActiveSeven] = useState(false)
 
+
+    const { data } = props;
+    // console.log(data)
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 6;
+    const endOffset = itemOffset + itemsPerPage;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    const currentItems = data?.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(data?.length / itemsPerPage);
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % data?.length;
+        setItemOffset(newOffset)
+    };
+
+    // FILTERED DATA
+    const [searchQuery, setSearchQuery] = useState('');
+    const filteredData = currentItems?.filter(item =>
+        (item?.title?.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (item?.location?.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (item?.price?.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+
+    console.log(filteredData?.length)
     const handleOne = () => {
         setActiveOne(true)
         setActiveTwo(false)
@@ -82,13 +109,37 @@ const Services = () => {
         setActiveSix(false)
     }
 
+    const locations = window.location.pathname
+
+
+
     return (
-        <div className="py-4" data-aos="fade-up">
+        <div className="py-5" data-aos="fade-up">
             <Container>
-                <div className="d-flex justify-content-center align-items-center text-center">
-                    <h3><span style={{ borderBottom: '2px solid #333' }}>Go Anywhere</span>  <br /> <span style={{ color: '#FF5324', borderBottom: '2px solid #FF5324' }}> with our latest e-Tour offers</span></h3>
+
+                <div className="d-flex justify-content-between align-items-center py-3">
+                    <Form className="d-flex">
+                        <Form.Control
+                            type="search"
+                            placeholder="Search events"
+                            className="me-2 border-0 shadow-sm"
+                            aria-label="Search"
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            defaultValue={searchQuery}
+                        />
+                    </Form>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <Form.Select aria-label="Default select example" className="border-0 shadow-sm text-muted">
+                            <option>select events</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </Form.Select>
+                        <Button className="btn_filter ms-2">Filter</Button>
+                    </div>
                 </div>
-                <div className="d-flex w-100 py-3 flex-wrap">
+
+                <div className="d-flex w-100 py-3">
                     <div className="s_box_wrapper">
                         <div className="d-flex" onClick={handleOne}>
                             <p className={activeOne === true ? ' s_active' : 's_box'}>
@@ -148,39 +199,38 @@ const Services = () => {
                         </div>
                     </div>
                 </div>
+
                 {
                     activeOne === true ?
                         <>
-                            {
-                                isLoading ? <div className='d-flex justify-content-center align-items-center text-dark fw-bold my-5 fs-5'>
-                                    <Spinner animation="grow" />
-                                </div> :
-                                    <Row>
-                                        {
-                                            allPoost?.map((item, i) => (
-                                                <Col md={4} key={i}>
-                                                    <Link href={`/single-events/${item._id}`} className="text-decoration-none">
-                                                        <Card className='s_Img_con bg-white border-0'>
-                                                            <div className="p-2">
-                                                                <Card.Img src={item?.photos[0] ? item?.photos[0] : '/assets/header_four.jpg'} className='s_img' />
-                                                            </div>
-                                                            <Card.Body className="s_overlay">
-                                                                <Card.Title>{item?.title}</Card.Title>
-                                                                <Card.Text style={{ color: '##939A9C !important', fontSize: '.88em' }}>
-                                                                    <LocationOnIcon style={{ color: '##939A9C !important', fontSize: '1em' }} />{item?.location}
-                                                                    <span style={{ color: '#FF5857' }} className="ms-4 fw-bold">$ {item?.price}</span>
-                                                                </Card.Text>
-                                                                <span className='s_love_con'>
-                                                                    <span> <StarIcon style={{ color: '#FF5857' }} className="s_icon" /> 4.5</span>
-                                                                </span>
-                                                            </Card.Body>
-                                                        </Card>
-                                                    </Link>
-                                                </Col>
-                                            ))
-                                        }
-                                    </Row>
-                            }
+
+                            <Row>
+
+                                {
+                                    filteredData?.map((item, i) => (
+                                        <Col md={4} key={i}>
+                                            <Link href={`/single-events/${item._id}`} className="text-decoration-none">
+                                                <Card className='s_Img_con bg-white border-0'>
+                                                    <div className="p-2">
+                                                        <Card.Img src={item?.photos[0] ? item.photos[0] : '/assets/header_four.jpg'} className='s_img' loading="lazy" />
+                                                    </div>
+                                                    <Card.Body className="s_overlay">
+                                                        <Card.Title>{item?.title}</Card.Title>
+                                                        <Card.Text style={{ color: '##939A9C !important', fontSize: '.88em' }}>
+                                                            <LocationOnIcon style={{ color: '##939A9C !important', fontSize: '1em' }} />
+                                                            {item?.location}
+                                                            <span style={{ color: '#FF5857' }} className="ms-4 fw-bold">$ {item?.price}</span>
+                                                        </Card.Text>
+                                                        <span className='s_love_con'>
+                                                            <span> <StarIcon style={{ color: '#FF5857' }} className="s_icon" /> 4.5</span>
+                                                        </span>
+                                                    </Card.Body>
+                                                </Card>
+                                            </Link>
+                                        </Col>
+                                    ))
+                                }
+                            </Row>
                         </>
 
                         : ''
@@ -203,9 +253,28 @@ const Services = () => {
                 {
                     activeSeven === true ? <div >hello things to do</div> : ''
                 }
+
+                <div className="d-flex justify-content-center align-items-center w-100 mt-3">
+                    <ReactPaginate
+                        breakLabel="..."
+                        nextLabel="next >"
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={5}
+                        pageCount={pageCount}
+                        previousLabel="< prev"
+                        renderOnZeroPageCount={null}
+                        containerClassName="pagination"
+                        pageLinkClassName='page-num'
+                        previousLinkClassName='page-num'
+                        nextLinkClassName='page-num'
+                        activeLinkClassName='active'
+
+                    />
+                </div>
+
             </Container>
         </div>
     )
 }
 
-export default Services
+export default EventsPaginations  
