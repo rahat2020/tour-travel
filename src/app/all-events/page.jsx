@@ -6,7 +6,7 @@ export const metadata = {
     description: 'A tour travel website',
   }
 
-const page = () => {
+const AllEventsPage = () => {
     return (
         <div>
             <AllEvents />
@@ -14,4 +14,4 @@ const page = () => {
     )
 }
 
-export default page
+export default AllEventsPage

@@ -1,6 +1,6 @@
 import AdminDashboard from '@/components/AdminDashboard/AdminDashboard'
 
-const page = () => {
+const AdminDashboardPage = () => {
   return (
     <div>
         <AdminDashboard/>
@@ -8,4 +8,4 @@ const page = () => {
   )
 }
 
-export default page
+export default AdminDashboardPage

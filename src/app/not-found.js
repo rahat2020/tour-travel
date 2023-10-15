@@ -5,7 +5,7 @@ export const metadata = {
   description: 'A tour travel website',
 }
 
-const page = () => {
+const NotFound = () => {
   return (
     <div className='d-flex justify-content-center align-items-center w-100 h-100'>
       <Notfound />
@@ -13,4 +13,4 @@ const page = () => {
   )
 }
 
-export default page
+export default NotFound

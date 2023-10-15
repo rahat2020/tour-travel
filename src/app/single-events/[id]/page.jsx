@@ -6,7 +6,7 @@ export const metadata = {
     description: 'A tour travel website',
   }
 
-const page = ({params}) => {
+const SingleEventsPage = ({params}) => {
     return (
         <div>
             <SingleEvents params={params.id}/>
@@ -14,4 +14,4 @@ const page = ({params}) => {
     )
 }
 
-export default page
+export default SingleEventsPage

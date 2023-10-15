@@ -1,6 +1,6 @@
 import UserDashboard from '@/components/UserDashboard/UserDashboard'
 
-const page = () => {
+const UserDashboardPage = () => {
   return (
     <div>
         <UserDashboard/>
@@ -8,4 +8,4 @@ const page = () => {
   )
 }
 
-export default page
+export default UserDashboardPage
