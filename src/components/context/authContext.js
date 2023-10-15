@@ -63,15 +63,16 @@
 // };
 
 "use client"
+
 import { createContext, useEffect, useReducer } from "react";
 
+const AuthContext = createContext();
+
 const INITIAL_STATE = {
-  user: typeof window !== "undefined" ? localStorage.getItem("user") || "" : "",
+  user: "",
   loading: false,
   error: null,
 };
-
-export const AuthContext = createContext(INITIAL_STATE);
 
 const AuthReducer = (state, action) => {
   switch (action.type) {
@@ -104,25 +105,29 @@ const AuthReducer = (state, action) => {
   }
 };
 
-export const AuthContextProvider = ({ children }) => {
+const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("user", state.user || "");
+      const savedUser = localStorage.getItem("user");
+      if (savedUser) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: savedUser });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (state.user && typeof window !== "undefined") {
+      localStorage.setItem("user", state.user);
     }
   }, [state.user]);
 
   return (
-    <AuthContext.Provider
-      value={{
-        user: state.user,
-        loading: state.loading,
-        error: state.error,
-        dispatch,
-      }}
-    >
+    <AuthContext.Provider value={{ ...state, dispatch }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export { AuthContext, AuthContextProvider };
