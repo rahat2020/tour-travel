@@ -62,7 +62,7 @@
 //   );
 // };
 
-
+"use client"
 import { createContext, useEffect, useReducer } from "react";
 
 const INITIAL_STATE = {
