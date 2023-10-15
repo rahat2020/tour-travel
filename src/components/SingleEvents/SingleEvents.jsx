@@ -22,7 +22,6 @@ const SingleEvents = ({ params }) => {
     }
 
     const locations = window.location.pathname
-
     const handleBook = (event) => {
         event.preventDefault();
         toast('Please login to book an event, thank you!')

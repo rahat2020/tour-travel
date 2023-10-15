@@ -39,7 +39,7 @@ const UserProfile = () => {
 
     const [UpdateUser] = useUpdateUserMutation()
 
-    // handle form submit
+    // UPDATE USER
     const [username, setUserName] = useState(userData?.username || "")
     const [password, setUser_Password] = useState(userData?.password || "")
     const [email, setUser_Email] = useState(userData?.email || "")
@@ -113,6 +113,8 @@ const UserProfile = () => {
         }
 
     }
+
+
     return (
         <div className="py-5" data-aos="fade-up">
             <Container>

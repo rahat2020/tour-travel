@@ -1,5 +1,5 @@
 "use client"
-import { Button, Container, Dropdown, Image, Navbar } from "react-bootstrap"
+import { Button, Container, Image } from "react-bootstrap"
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
@@ -10,11 +10,8 @@ import Table from 'react-bootstrap/Table';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/navigation";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import AdminNav from "./AdminNav";
-import { useAddPostMutation, useDeletePostsMutation, useDeleteUserMutation, useGetAllPostQuery, useGetAllUsersQuery, useGetSinglePostQuery, useGetSingleUserQuery, useLazyGetAllPostQuery, useUpdateUserMutation, useUserDataByEmailQuery } from "@/redux/apiSlice";
+import { useAddPostMutation, useDeletePostsMutation, useDeleteUserMutation, useGetAllPostQuery, useGetAllUsersQuery, useGetSinglePostQuery, useGetSingleUserQuery, useUpdateUserMutation, useUserDataByEmailQuery } from "@/redux/apiSlice";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";

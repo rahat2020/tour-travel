@@ -6,14 +6,10 @@ import { useState } from "react";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StarIcon from '@mui/icons-material/Star';
 import Link from "next/link";
-import Pagination from 'react-bootstrap/Pagination';
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { useGetAllPostQuery } from "@/redux/apiSlice";
 import ReactPaginate from 'react-paginate';
 import './Paginations.css';
 
 const EventsPaginations = (props) => {
-    // const { data: allPoost, isLoading } = useGetAllPostQuery()
     const [activeOne, setActiveOne] = useState(true)
     const [activeTwo, setActiveTwo] = useState(false)
     const [activeThree, setActiveThree] = useState(false)
@@ -108,10 +104,6 @@ const EventsPaginations = (props) => {
         setActiveFive(false)
         setActiveSix(false)
     }
-
-    const locations = window.location.pathname
-
-
 
     return (
         <div className="py-5" data-aos="fade-up">

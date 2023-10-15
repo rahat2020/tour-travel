@@ -1,10 +1,7 @@
 import React from 'react'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { Container, Navbar,Image, Nav } from 'react-bootstrap';
 import { useUserDataByEmailQuery } from '@/redux/apiSlice';
-
 
 const DashboardNav = () => {
     const userEmail = localStorage.getItem('user') || '';
