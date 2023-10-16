@@ -11,13 +11,13 @@ import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import StarIcon from '@mui/icons-material/Star';
 
-const fpData = [
-    {
-        id: 1,
-        title: 'Kaptai Navy Camp',
-        location: 'Kaptai Upazila'
-    },
-]
+// const fpData = [
+//     {
+//         id: 1,
+//         title: 'Kaptai Navy Camp',
+//         location: 'Kaptai Upazila'
+//     },
+// ]
 
 const FeaturedVideos = () => {
     const responsive = {

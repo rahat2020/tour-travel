@@ -19,9 +19,9 @@ import Modal from 'react-bootstrap/Modal';
 
 
 const AdminDashboard = () => {
-    const userEmail = localStorage.getItem('user') || '';
-    const id = localStorage.getItem('id') || '';
-    const uId = localStorage.getItem('uId') || '';
+    const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
+    const id = typeof window !== "undefined" ? window.localStorage.getItem('id') || '' : false
+    const uId = typeof window !== "undefined" ? window.localStorage.getItem('uId') || '' : false
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     const { data: allUsers } = useGetAllUsersQuery()
     const [UpdateUser] = useUpdateUserMutation()

@@ -7,7 +7,7 @@ import { useUserDataByEmailQuery } from '@/redux/apiSlice';
 
 
 const AdminNav = () => {
-    const userEmail = localStorage.getItem('user') || '';
+    const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     // console.log(userData)
     return (

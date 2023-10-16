@@ -12,7 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useGetSinglePostQuery, useUserDataByEmailQuery } from '@/redux/apiSlice';
 
 const SingleEvents = ({ params }) => {
-    const userEmail = localStorage.getItem('user') || '';
+    const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
+    // const userEmail = localStorage.getItem('user') || '';
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     const { data,isLoading } = useGetSinglePostQuery(params)
     console.log(data)

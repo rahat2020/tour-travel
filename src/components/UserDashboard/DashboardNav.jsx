@@ -4,7 +4,7 @@ import { Container, Navbar,Image, Nav } from 'react-bootstrap';
 import { useUserDataByEmailQuery } from '@/redux/apiSlice';
 
 const DashboardNav = () => {
-    const userEmail = localStorage.getItem('user') || '';
+    const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     console.log(userData)
     return (

@@ -7,10 +7,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import SearchIcon from '@mui/icons-material/Search';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import SendIcon from '@mui/icons-material/Send';
-import CopyrightIcon from '@mui/icons-material/Copyright';
 
 const Footer = () => {
   return (

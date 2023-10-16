@@ -34,7 +34,8 @@ const Topbar = () => {
 
 
     const setToLocalStorage = (email) => {
-        localStorage.setItem("user", email);
+        typeof window !== "undefined" ? window.localStorage.setItem("user", email) : false
+        // localStorage.setItem("user", email);
     }
 
 

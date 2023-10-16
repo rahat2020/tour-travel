@@ -16,7 +16,8 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 
 const UserDashboard = () => {
-    const userEmail = localStorage.getItem('user') || '';
+    const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
+    // const userEmail = localStorage.getItem('user') || '';
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     console.log('userData', userData)
     const router = useRouter()
