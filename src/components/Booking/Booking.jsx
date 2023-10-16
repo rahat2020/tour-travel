@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 import Link from "next/link";
 import { Col, Container, Form, Row, Button, Image } from "react-bootstrap"
 import { ToastContainer, toast } from 'react-toastify';
