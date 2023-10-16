@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -18,7 +18,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import { AuthContext } from '@/components/context/authContext';
 import { useLoginMutation, useRegisterMutation, useUserDataByEmailQuery } from '@/redux/apiSlice';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
@@ -33,15 +32,19 @@ const Topbar = () => {
     const handleShow = () => setShow(true);
 
 
+
+    const setToLocalStorage = (email) => {
+        localStorage.setItem("user", email);
+    }
+
+
     // LOGIN PARTS
-    const { dispatch } = useContext(AuthContext)
     const [username, setUserName] = useState("")
     const [password, setUser_Password] = useState("")
     const userEmail = localStorage.getItem('user') || '';
     const ifUareA = localStorage.getItem('ifura') || '';
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     const router = useRouter()
-    // const userArray = [userData]
 
     console.log('topbar', userData?.email)
     const handleLogin = async (e) => {
@@ -60,12 +63,14 @@ const Topbar = () => {
                 console.log('login', res)
                 if (res?.data?.message === "Login successful") {
                     toast('Logged in Successfully')
-                    dispatch({ type: "LOGIN_SUCCESS", payload: res?.data?.email });
+                    // dispatch({ type: "LOGIN_SUCCESS", payload: res?.data?.email });
                     if (res?.data?.role === 'admin') {
                         localStorage.setItem("ifura", "su")
+                        setToLocalStorage(res?.data?.email)
                     }
                     if (res?.data?.role === 'user') {
                         localStorage.setItem("ifura", "nu")
+                        setToLocalStorage(res?.data?.email)
                     }
                     router.push('/user-profile')
 
@@ -135,11 +140,11 @@ const Topbar = () => {
 
     // LOGOUT
     const handleLogout = () => {
-        dispatch({ type: "LOGOUT" })
         Swal.fire({
             icon: 'success',
             title: 'Thanks for being with us',
         })
+        localStorage.removeItem("user")
         localStorage.removeItem("ifura")
         window.location.reload()
         router.push('/')
@@ -290,7 +295,7 @@ const Topbar = () => {
                                             />
                                         </Form.Group>
                                         <Form.Group controlId="formGridState" className="mb-3">
-                                            <Form.Select onChange={(e)=>setRole(e.target.value)} className='border-0 rounded shadow text-muted'>
+                                            <Form.Select onChange={(e) => setRole(e.target.value)} className='border-0 rounded shadow text-muted'>
                                                 <option>Choose user role</option>
                                                 <option>admin</option>
                                                 <option>user</option>

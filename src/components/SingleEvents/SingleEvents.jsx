@@ -1,5 +1,5 @@
 "use client"
-import { Button, Card, Carousel, Col, Container, Image, Row, Breadcrumb } from 'react-bootstrap';
+import { Button, Card, Carousel, Col, Container, Image, Row, Breadcrumb, Spinner } from 'react-bootstrap';
 import './SingleEvents.css';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ShareIcon from '@mui/icons-material/Share';
@@ -14,7 +14,7 @@ import { useGetSinglePostQuery, useUserDataByEmailQuery } from '@/redux/apiSlice
 const SingleEvents = ({ params }) => {
     const userEmail = localStorage.getItem('user') || '';
     const { data: userData } = useUserDataByEmailQuery(userEmail)
-    const { data } = useGetSinglePostQuery(params)
+    const { data,isLoading } = useGetSinglePostQuery(params)
     console.log(data)
     const handleShared = (event) => {
         event.preventDefault();
@@ -35,6 +35,10 @@ const SingleEvents = ({ params }) => {
                     <Breadcrumb.Item href={locations} className="text-decoration-none">{locations}</Breadcrumb.Item>
                     <Breadcrumb.Item active>book</Breadcrumb.Item>
                 </Breadcrumb>
+                {
+                      isLoading ? <div className='d-flex justify-content-center align-items-center text-dark fw-bold my-5 fs-5'>
+                      <Spinner animation="grow" />
+                  </div> :
                 <Row>
                     <Col md={5}>
                         <div className="">
@@ -91,6 +95,7 @@ const SingleEvents = ({ params }) => {
                         </div>
                     </Col>
                 </Row>
+                }
                 <div className="mt-5 pt-5">
                     <div className="d-flex text-start py-3">
                         <h3><span style={{ borderBottom: '2px solid #333' }}>Related</span> <span style={{ color: '#FF5324', borderBottom: '2px solid #FF5324' }}>Places and events</span></h3>

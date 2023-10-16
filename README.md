@@ -66,3 +66,11 @@
 - Events managements where admin can create, view and  delete events.
 - Logout options
 
+<!-- 
+
+git add .
+git commit -m "issuses fixed"
+git push
+npm run  build 
+
+-->

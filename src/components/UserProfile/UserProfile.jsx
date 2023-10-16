@@ -11,8 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/navigation";
 import { useUpdateUserMutation, useUserDataByEmailQuery } from "@/redux/apiSlice";
-import { AuthContext } from "@/components/context/authContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
 
 const UserProfile = () => {
@@ -20,13 +19,13 @@ const UserProfile = () => {
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     console.log(userData)
     const router = useRouter()
-    const { dispatch } = useContext(AuthContext)
     const handleLogout = (event) => {
         event.preventDefault();
         toast('Logout successfully!')
-        dispatch({ type: "LOGOUT" })
+        localStorage.removeItem("user")
         localStorage.removeItem("ifura")
         router.push('/')
+        window.location.reload()
     }
     const handleFeedback = (event) => {
         event.preventDefault();

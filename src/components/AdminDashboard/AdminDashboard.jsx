@@ -32,13 +32,17 @@ const AdminDashboard = () => {
     const { data: singleEvent } = useGetSinglePostQuery(id)
     const { data: singleUser } = useGetSingleUserQuery(uId)
 
-    console.log('singleEvent', singleEvent)
+    console.log('singleEvent', singleUser)
     const router = useRouter()
     const handleLogout = (event) => {
         event.preventDefault();
         toast('Logout successfully!')
+        localStorage.removeItem("user")
+        localStorage.removeItem("ifura")
         router.push('/')
+        window.location.reload()
     }
+    
     if (!userEmail) {
         router.push('/')
     }
@@ -689,13 +693,13 @@ const AdminDashboard = () => {
                                         <Col md={6}>
                                             <Form.Group className="mb-3 d-flex justify-content-between align-items-center w-100" controlId="formGridImg">
                                                 <Form.Label className="text-muted">Image</Form.Label>
-                                                <Image src={singleEvent?.photos[0] ? singleEvent?.photos[0] : "/assets/header_three.jpg"}
+                                                <Image src={singleEvent?.photos ? singleEvent?.photos[0] : "/assets/header_three.jpg"}
                                                     loading="lazy" style={{ width: '6rem', height: '6rem', objectFit: 'contain', }} />
-                                                <Image src={singleEvent?.photos[1] ? singleEvent?.photos[1] : "/assets/header_three.jpg"}
+                                                <Image src={singleEvent?.photos ? singleEvent?.photos[1] : "/assets/header_three.jpg"}
                                                     loading="lazy" style={{ width: '6rem', height: '6rem', objectFit: 'contain', }} />
-                                                <Image src={singleEvent?.photos[2] ? singleEvent?.photos[2] : "/assets/header_three.jpg"}
+                                                <Image src={singleEvent?.photos ? singleEvent?.photos[2] : "/assets/header_three.jpg"}
                                                     loading="lazy" style={{ width: '6rem', height: '6rem', objectFit: 'contain', }} />
-                                                <Image src={singleEvent?.photos[3] ? singleEvent?.photos[3] : "/assets/header_three.jpg"}
+                                                <Image src={singleEvent?.photos ? singleEvent?.photos[3] : "/assets/header_three.jpg"}
                                                     loading="lazy" style={{ width: '6rem', height: '6rem', objectFit: 'contain', }} />
                                             </Form.Group>
                                         </Col>
@@ -725,10 +729,18 @@ const AdminDashboard = () => {
                             <Modal.Body>
                                 <Form className="border-top py-2 shadow-sm p-3 rounded">
                                     <Row className="mb-3 gy-3">
+                                        <Col md={12}>
+                                            <Form.Group controlId="formGridrImage" className="d-flex flex-column justify-content-center align-items-center w-100">
+                                                <Form.Label className="text-muted">Image</Form.Label>
+                                                <Image src={singleUser?.photo ? singleUser?.photo : "/assets/user-1.png"} alt={singleUser?.username} 
+                                                    style={{width:"4rem", height:"4rem",objectFit:'contain'}} loading="lazy"
+                                                />
+                                            </Form.Group>
+                                        </Col>
                                         <Col md={6}>
                                             <Form.Group controlId="formGridEmail">
                                                 <Form.Label className="text-muted">Username</Form.Label>
-                                                <Form.Control type="email" placeholder="Enter email" defaultValue={userData?.username} className="border-0 shadow-sm rounded text-muted"
+                                                <Form.Control type="email" placeholder="Enter email" defaultValue={singleUser?.username} className="border-0 shadow-sm rounded text-muted"
                                                     onChange={(e) => setUserName(e.target.value)} />
                                             </Form.Group>
                                         </Col>
@@ -736,7 +748,7 @@ const AdminDashboard = () => {
                                             <Form.Group controlId="formGridEmail">
                                                 <Form.Label className="text-muted">Email</Form.Label>
                                                 <Form.Control type="email" placeholder="Enter email"
-                                                    defaultValue={userData?.email} className="border-0 shadow-sm rounded text-muted"
+                                                    defaultValue={singleUser?.email} className="border-0 shadow-sm rounded text-muted"
                                                     onChange={(e) => setUser_Email(e.target.value)}
                                                 />
                                             </Form.Group>
@@ -745,7 +757,7 @@ const AdminDashboard = () => {
                                             <Form.Group controlId="formGridPassword">
                                                 <Form.Label className="text-muted">Password</Form.Label>
                                                 <Form.Control type="password" placeholder="Password"
-                                                    defaultValue={userData?.password}
+                                                    defaultValue={singleUser?.password}
                                                     className="border-0 shadow-sm rounded text-muted"
                                                     onChange={(e) => setUser_Password(e.target.value)}
                                                 />

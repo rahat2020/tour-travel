@@ -12,7 +12,7 @@ const BookHome = () => {
                 <Row>
                     <Col md={6}>
                         <div className="d-flex w-100 justify-content-center align-items-center">
-                            <Image src="/assets/book.png" width={400} height={350} style={{ objectFit: 'contain', borderRadius:'20px' }} loading="lazy" />
+                            <Image src="/assets/book.png" width={400} height={350} style={{ objectFit: 'contain', borderRadius:'20px' }} loading="lazy" alt="book-img"/>
                         </div>
                     </Col>
                     <Col md={6}>

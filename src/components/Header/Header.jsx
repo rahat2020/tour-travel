@@ -1,7 +1,6 @@
 "use client"
 import { Col, Container, Row,Image } from 'react-bootstrap';
 import './Header.css';
-// import Image from 'next/image';
 import Tab from 'react-bootstrap/Tab';
 import Form from 'react-bootstrap/Form';
 import Tabs from 'react-bootstrap/Tabs';
