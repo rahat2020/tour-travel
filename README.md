@@ -1,8 +1,7 @@
 
 # TRAVEL AND TOUR:
 
-## DEMOSTRATION VIDEO:
-- [Video](https://www.loom.com/share/b912d43a00b346d5a8b0bf4971b5fa6a?sid=a3f54156-d742-4bb2-acea-77c195e99120) 
+## DEMOSTRATION VIDEO:- [VIDEO](https://www.loom.com/share/b912d43a00b346d5a8b0bf4971b5fa6a?sid=a3f54156-d742-4bb2-acea-77c195e99120) 
 
 ## LIVE WEBSITE - [TRAVEL & TOUR](https://tour-travel-m52n.vercel.app/)
 
@@ -70,7 +69,7 @@
 <!-- 
 
 git add .
-git commit -m "issuses fixed"
+git commit -m "read me file edited"
 git push
 npm run  build 
 
