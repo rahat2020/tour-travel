@@ -4,17 +4,19 @@ import './AllEvents.css';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useGetAllPostQuery } from "@/redux/apiSlice";
 import EventsPaginations from "./EventsPaginations";
+import { usePathname } from "next/navigation";
 
 
 const AllEvents = () => {
     const { data, isLoading } = useGetAllPostQuery()
-    const locations = window.location.pathname
+    // const locations = window.location.pathname
+    const routerPath = usePathname()
     return (
         <div className="py-5" data-aos="fade-up">
             <Container>
                 <Breadcrumb className="text-decoration-none">
                     <Breadcrumb.Item href="/" className="text-decoration-none">Home</Breadcrumb.Item>
-                    <Breadcrumb.Item href={locations} className="text-decoration-none">{locations}</Breadcrumb.Item>
+                    <Breadcrumb.Item href={routerPath} className="text-decoration-none">{routerPath}</Breadcrumb.Item>
                 </Breadcrumb>
 
                 <div className="d-flex justify-content-center align-items-center text-center">

@@ -17,20 +17,10 @@ import { useState } from "react";
 
 const UserDashboard = () => {
     const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
-    // const userEmail = localStorage.getItem('user') || '';
     const { data: userData } = useUserDataByEmailQuery(userEmail)
-    console.log('userData', userData)
-    const router = useRouter()
-    const handleLogout = (event) => {
-        event.preventDefault();
-        toast('Logout successfully!')
-        router.push('/')
-    }
-    if (!userEmail) {
-        router.push('/')
-    }
+    // console.log('userData', userData)
 
-    // handle form submit
+    // UPDATE USER FORM
     const [UpdateUser] = useUpdateUserMutation()
     const [username, setUserName] = useState(userData?.username || "")
     const [password, setUser_Password] = useState(userData?.password || "")
@@ -106,6 +96,22 @@ const UserDashboard = () => {
 
     }
 
+    // LOGOUT
+    const router = useRouter()
+    const handleLogout = (event) => {
+        event.preventDefault();
+        toast('Logout successfully!')
+        router.push('/')
+        typeof window !== "undefined" ? window.localStorage.removeItem("user") : false
+        typeof window !== "undefined" ? window.localStorage.removeItem("ifura") : false
+        typeof window !== "undefined" ? window.location.reload() : false;
+      
+    }
+    
+    // IF THERE IS NO USER
+    if (!userEmail) {
+        typeof window !== "undefined" ? window.location.replace("/") : false;
+    }
 
     return (
         <div className="py-5" data-aos="fade-up">

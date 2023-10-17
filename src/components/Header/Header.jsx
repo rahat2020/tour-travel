@@ -1,5 +1,5 @@
-"use client"
-import { Col, Container, Row,Image } from 'react-bootstrap';
+"use client";
+import { Col, Container, Row, Image } from 'react-bootstrap';
 import './Header.css';
 import Tab from 'react-bootstrap/Tab';
 import Form from 'react-bootstrap/Form';
@@ -12,11 +12,11 @@ import Carousel from 'react-bootstrap/Carousel';
 
 const Header = () => {
     return (
-        <div className='py-5'>
+        <section className='py-5'>
             <Container>
                 <Row className='gy-2'>
                     <Col md={7}>
-                        <div className="p-3 text-start" >
+                        <section className="p-3 text-start" >
                             <h1 className='fw-bold text-capitalize '>life is short, </h1>
                             <h1 className='fw-bold text-capitalize'>the world is wide</h1>
                             <p className='my-3 text-muted'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur alias, repellendus accusamus autem magni incidunt ullam ab facere doloribus eligendi?</p>
@@ -102,48 +102,45 @@ const Header = () => {
                                     </Tab>
                                 </Tabs>
                             </div>
-                        </div>
+                        </section>
                     </Col>
                     <Col md={5}>
-                        <div className="">
-                            <Carousel data-bs-theme="light" fade indicators={false} >
-                                <Carousel.Item>
-                                    <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
-                                        <Image src="/assets/header_img.png" 
+                        <Carousel data-bs-theme="light" fade indicators={false} >
+                            <Carousel.Item>
+                                <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
+                                    <Image src="/assets/header_img.png"
                                         className='feature_left'
-                                        style={{ borderRadius: '20px', objectFit: 'cover' }} loading='lazy'/>
-                                        <div className="overlay">
-                                            <small className='category'>Scotland</small>
-                                            <h3>Beauty of deep nature. Billions of stories.</h3>
-                                        </div>
+                                        style={{ borderRadius: '20px', objectFit: 'cover' }} loading='lazy' />
+                                    <div className="overlay">
+                                        <small className='category'>Scotland</small>
+                                        <h3>Beauty of deep nature. Billions of stories.</h3>
                                     </div>
-                                </Carousel.Item>
-                                <Carousel.Item>
-                                    <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
-                                        <Image src="/assets/header_four.jpg" alt='kaptai'  className='feature_left shadow-sm' loading='lazy' />
-                                        <div className="overlay">
-                                            <small className='category'>Kaptai</small>
-                                            <h3>A lake of nature beauty</h3>
-                                        </div>
+                                </div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
+                                    <Image src="/assets/header_four.jpg" alt='kaptai' className='feature_left shadow-sm' loading='lazy' />
+                                    <div className="overlay">
+                                        <small className='category'>Kaptai</small>
+                                        <h3>A lake of nature beauty</h3>
                                     </div>
-                                </Carousel.Item>
-                                <Carousel.Item>
-                                    <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
-                                        <Image src="/assets/header_three.jpg" alt='ranngamati' 
+                                </div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <div className="img_container d-flex justify-content-center align-items-cetner shadow-sm">
+                                    <Image src="/assets/header_three.jpg" alt='ranngamati'
                                         className='feature_left shadow-sm' loading='lazy' />
-                                        <div className="overlay">
-                                            <small className='category'>Rangamati</small>
-                                            <h3>A nature heaven belongs to Rangamati</h3>
-                                        </div>
+                                    <div className="overlay">
+                                        <small className='category'>Rangamati</small>
+                                        <h3>A nature heaven belongs to Rangamati</h3>
                                     </div>
-                                </Carousel.Item>
-                            </Carousel>
-
-                        </div>
+                                </div>
+                            </Carousel.Item>
+                        </Carousel>
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </section>
     )
 }
 

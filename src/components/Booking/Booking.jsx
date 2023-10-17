@@ -1,9 +1,9 @@
 "use client";
-import Link from "next/link";
 import { Col, Container, Form, Row, Button, Image } from "react-bootstrap"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import Nav from 'react-bootstrap/Nav';
 
 const Booking = () => {
     const handleBooking = (event) => {
@@ -116,7 +116,7 @@ const Booking = () => {
                                 </Col>
 
                                 <p className="w-100 text-primary">
-                                    <Link href="/canceltion-policy">Cancellation Policy</Link>
+                                    <Nav.Link href="/canceltion-policy">Cancellation Policy</Nav.Link>
                                 </p>
                             </Row>
                         </Col>

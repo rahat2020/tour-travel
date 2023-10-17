@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { Button, Col, Container, Row } from "react-bootstrap"
 import './BookHome.css'
-import Link from "next/link"
+import Nav from 'react-bootstrap/Nav';
 
 const BookHome = () => {
     return (
@@ -19,9 +19,9 @@ const BookHome = () => {
                         <div className="bh_right">
                             <h1>Book a <br /> ticket & just leave </h1>
                             <p style={{color:'#777'}} className="py-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit blanditiis fugiat eius voluptatibus ad. Nesciunt ut ratione amet enim nam distinctio nostrum adipisci, itaque ex laborum, repudiandae cupiditate omnis fugit.</p>
-                            <Link href="/all-events" className="text-decoration-none">
+                            <Nav.Link href="/all-events" className="text-decoration-none">
                                 <Button className="btn_bookHome">Book</Button>
-                            </Link>
+                            </Nav.Link>
                         </div>
                     </Col>
                 </Row>

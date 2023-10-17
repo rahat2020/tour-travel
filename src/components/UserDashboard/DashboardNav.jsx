@@ -6,7 +6,7 @@ import { useUserDataByEmailQuery } from '@/redux/apiSlice';
 const DashboardNav = () => {
     const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
     const { data: userData } = useUserDataByEmailQuery(userEmail)
-    console.log(userData)
+    // console.log(userData)
     return (
         <Navbar expand="lg" className="bg-transparent shadow-sm">
             <Container>

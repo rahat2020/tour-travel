@@ -17,28 +17,17 @@ import Swal from "sweetalert2";
 const UserProfile = () => {
     const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
     const { data: userData } = useUserDataByEmailQuery(userEmail)
-    console.log(userData)
-    const router = useRouter()
-    const handleLogout = (event) => {
-        event.preventDefault();
-        toast('Logout successfully!')
-        localStorage.removeItem("user")
-        localStorage.removeItem("ifura")
-        router.push('/')
-        window.location.reload()
-    }
+    // console.log(userData)
+
+
+    // FEEDBACK ACCEPTED
     const handleFeedback = (event) => {
         event.preventDefault();
         toast('Your feedback are recorded, thank you!')
     }
 
-    if (!userEmail) {
-        router.push('/')
-    }
-
-    const [UpdateUser] = useUpdateUserMutation()
-
     // UPDATE USER
+    const [UpdateUser] = useUpdateUserMutation()
     const [username, setUserName] = useState(userData?.username || "")
     const [password, setUser_Password] = useState(userData?.password || "")
     const [email, setUser_Email] = useState(userData?.email || "")
@@ -111,6 +100,22 @@ const UserProfile = () => {
             })
         }
 
+    }
+
+    // LOGOUT
+    const router = useRouter()
+    const handleLogout = (event) => {
+        event.preventDefault();
+        toast('Logout successfully!')
+        router.push('/')
+        typeof window !== "undefined" ? window.localStorage.removeItem("user") : false
+        typeof window !== "undefined" ? window.localStorage.removeItem("ifura") : false
+        typeof window !== "undefined" ? window.location.reload() : false;
+    }
+
+    // IF THERE IS NO USER
+    if (!userEmail) {
+        typeof window !== "undefined" ? window.location.replace("/") : false;
     }
 
 
@@ -258,7 +263,7 @@ const UserProfile = () => {
                                     </Tab.Pane>
 
                                     <Tab.Pane eventKey="third">
-                                    <Form className="border-top py-2 shadow-sm p-3 rounded">
+                                        <Form className="border-top py-2 shadow-sm p-3 rounded">
                                             <Row className="mb-3 gy-3">
                                                 <Col md={6}>
                                                     <Form.Group controlId="formGridEmail">

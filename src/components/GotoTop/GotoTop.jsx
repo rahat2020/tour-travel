@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import './GotoTop.css';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';

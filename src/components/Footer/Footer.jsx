@@ -2,7 +2,8 @@
 import React from 'react'
 import { Col, Container, Form, Image, Row } from 'react-bootstrap';
 import './Footer.css';
-import Link from 'next/link';
+// import Link from 'next/link';
+import Nav from 'react-bootstrap/Nav';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -32,18 +33,18 @@ const Footer = () => {
                 <div className="d-flex flex-column">
                   <h5 className='text-white border-bottom w-100'>Company</h5>
                   <div className="d-flex justify-content-start flex-column">
-                    <Link href="/Contact" className='text-decoration-none text-secondary'>Contact</Link>
-                    <Link href="/Careers" className='text-decoration-none text-secondary'>Careers</Link>
-                    <Link href="/News" className='text-decoration-none text-secondary'>News</Link>
+                    <Nav.Link href="/Contact" className='text-decoration-none text-secondary'>Contact</Nav.Link>
+                    <Nav.Link href="/Careers" className='text-decoration-none text-secondary'>Careers</Nav.Link>
+                    <Nav.Link href="/News" className='text-decoration-none text-secondary'>News</Nav.Link>
                   </div>
                 </div>
                 <div className="d-flex flex-column">
                   <h5 className='text-white border-bottom w-100'>Quick links</h5>
                   <div className="d-flex justify-content-start flex-column">
-                    <Link href="/" className='text-decoration-none text-secondary'>Support Center</Link>
-                    <Link href="/" className='text-decoration-none text-secondary'>Security</Link>
-                    <Link href="/" className='text-decoration-none text-secondary'>Privacy Policy</Link>
-                    <Link href="/" className='text-decoration-none text-secondary'>Documentation</Link>
+                    <Nav.Link href="/" className='text-decoration-none text-secondary'>Support Center</Nav.Link>
+                    <Nav.Link href="/" className='text-decoration-none text-secondary'>Security</Nav.Link>
+                    <Nav.Link href="/" className='text-decoration-none text-secondary'>Privacy Policy</Nav.Link>
+                    <Nav.Link href="/" className='text-decoration-none text-secondary'>Documentation</Nav.Link>
                   </div>
                 </div>
 
@@ -64,24 +65,24 @@ const Footer = () => {
               <div className="w-100">
                 <div className="d-flex justify-content-between align-items-center mt-3">
                   <div className="TH_socialIcon_container">
-                    <Link href="https://www.instagram.com/kazirahat1020" target="_blank">
+                    <Nav.Link href="https://www.instagram.com/kazirahat1020" target="_blank">
                       <InstagramIcon className='TH_socialIcon' />
-                    </Link>
+                    </Nav.Link>
                   </div>
                   <div className="TH_socialIcon_container">
-                    <Link href="https://www.linkedin.com/in/kazi-rahat2020/" target="_blank">
+                    <Nav.Link href="https://www.linkedin.com/in/kazi-rahat2020/" target="_blank">
                       <LinkedInIcon className='TH_socialIcon' />
-                    </Link>
+                    </Nav.Link>
                   </div>
                   <div className="TH_socialIcon_container">
-                    <Link href="https://www.facebook.com/rahatwebdev" target="_blank">
+                    <Nav.Link href="https://www.facebook.com/rahatwebdev" target="_blank">
                       <FacebookIcon className='TH_socialIcon' />
-                    </Link>
+                    </Nav.Link>
                   </div>
                   <div className="TH_socialIcon_container">
-                    <Link href="https://twitter.com/KaziRahat2020" target="_blank">
+                    <Nav.Link href="https://twitter.com/KaziRahat2020" target="_blank">
                       <TwitterIcon className='TH_socialIcon' />
-                    </Link>
+                    </Nav.Link>
                   </div>
                 </div>
 

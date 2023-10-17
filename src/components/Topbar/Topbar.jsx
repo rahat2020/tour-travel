@@ -1,12 +1,9 @@
-"use client"
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+"use client";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import { Card, Dropdown, Image, } from 'react-bootstrap';
-import Link from 'next/link';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import './Topbar.css';
@@ -20,34 +17,33 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { useLoginMutation, useRegisterMutation, useUserDataByEmailQuery } from '@/redux/apiSlice';
 import Swal from 'sweetalert2';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import axios from 'axios';
 
 const Topbar = () => {
     const [LoginData] = useLoginMutation()
     const [RegisterData] = useRegisterMutation()
-    const Tpath = window.location.pathname
+    const Tpath = usePathname()
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
-
     const setToLocalStorage = (email) => {
         typeof window !== "undefined" ? window.localStorage.setItem("user", email) : false
-        // localStorage.setItem("user", email);
     }
-
 
     // LOGIN PARTS
     const [username, setUserName] = useState("")
     const [password, setUser_Password] = useState("")
-    const userEmail = localStorage.getItem('user') || '';
-    const ifUareA = localStorage.getItem('ifura') || '';
+    const userEmail = typeof window !== "undefined" ? localStorage.getItem('user') || '' : false
+    const ifUareA =  typeof window !== "undefined" ? localStorage.getItem('ifura') || '' : false
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     const router = useRouter()
 
-    console.log('topbar', userData?.email)
+    // console.log('router', router)
+    // console.log('routerPath', routerPath)
+    // console.log('topbar', userData?.email)
+
     const handleLogin = async (e) => {
         e.preventDefault()
         const object = {
@@ -145,9 +141,9 @@ const Topbar = () => {
             icon: 'success',
             title: 'Thanks for being with us',
         })
-        localStorage.removeItem("user")
-        localStorage.removeItem("ifura")
-        window.location.reload()
+        typeof window !== "undefined" ? windowlocalStorage.removeItem("user") : false;
+        typeof window !== "undefined" ? window.localStorage.removeItem("ifura") : false;
+        typeof window !== "undefined" ? window.location.reload() : false;
         router.push('/')
     }
 
@@ -155,6 +151,7 @@ const Topbar = () => {
     return (
         <div>
             <Navbar expand="lg" className="bg-transparent shadow-sm">
+
                 <Container>
                     <Navbar.Brand href="/">
                         <Image src='/assets/logo.png' alt="logo"
@@ -165,7 +162,8 @@ const Topbar = () => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto d-flex justify-content-center align-items-center">
 
-                            <Nav.Link href='/all-events' style={{ fontSize: '.94rem' }} className={Tpath === '/all-events' ? 'activecls text-secondary px-2 p-1' : 'text-secondary px-2 p-1'} >
+                            <Nav.Link href='/all-events' style={{ fontSize: '.94rem' }}
+                                className={Tpath === '/all-events' ? 'activecls text-secondary px-2 p-1' : 'text-secondary px-2 p-1'} >
                                 All events
                             </Nav.Link>
                             <Dropdown className='ms-2'>
@@ -200,6 +198,7 @@ const Topbar = () => {
                                     <Dropdown.Item href="#/action-1">BDT</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
+
                             <Form className="d-flex">
                                 <Form.Control
                                     type="search"
@@ -208,11 +207,11 @@ const Topbar = () => {
                                     aria-label="Search"
                                 />
                             </Form>
-                            <Nav.Link href='#' >
+                            <Nav.Link href='#'>
                                 <span className='btn_nav'>List your places</span>
                             </Nav.Link>
 
-                            <Nav.Link style={{ fontSize: '.94rem' }}>
+                            <Nav.Link href="#" style={{ fontSize: '.94rem' }}>
                                 <div className="notifications">
                                     <NotificationsNoneIcon />
                                     <span className="notification_num">9</span>
@@ -309,7 +308,7 @@ const Topbar = () => {
                                             />
                                         </Form.Group>
                                         <Form.Group className="mb-3" id="formGridCheckbox">
-                                            <Link href="/privacy-policy">Read Privacy Policy</Link>
+                                            <Nav.Link href="/privacy-policy">Read Privacy Policy</Nav.Link>
                                         </Form.Group>
                                         <div className="d-grid w-100">
                                             <Button variant="outline-secondary fw-bold border-0 shadow rounded" type="submit"
@@ -342,33 +341,32 @@ const Topbar = () => {
                                         <Card.Title className='text-secondary'>Total Posts:</Card.Title>
                                         <Card.Title className='text-secondary'>9</Card.Title>
                                     </div>
-
                                     <div className="d-flex justify-content-between align-items-center mt-2">
                                         {
                                             ifUareA === "su" ?
-                                                <Link href="/super-dashboard" className='text-decoration-none'>
+
+                                                <Nav.Link href="/super-dashboard" className='text-decoration-none'>
                                                     <Button variant="success fw-bold" size='sm'>Go to Dashboard</Button>
-                                                </Link>
+                                                </Nav.Link>
                                                 :
-                                                <Link href="/user-dashboard" className='text-decoration-none'>
+                                                <Nav.Link href="/user-dashboard" className='text-decoration-none'>
                                                     <Button variant="success fw-bold" size='sm'>Go to Dashboard</Button>
-                                                </Link>
+                                                </Nav.Link>
+
                                         }
-                                        <Link href="/user-profile" className='text-decoration-none'>
+                                        <Nav.Link href="/user-profile" className='text-decoration-none' >
                                             <Button variant="success fw-bold" size='sm'>Profile</Button>
-                                        </Link>
+                                        </Nav.Link>
                                         <Button variant="danger text-white fw-bold" size='sm' onClick={handleLogout}>Logout</Button>
                                     </div>
+
                                 </Card.Body>
                             </Card>
                     }
 
-
-
-
                 </Offcanvas.Body>
             </Offcanvas>
-        </div>
+        </div >
     )
 }
 

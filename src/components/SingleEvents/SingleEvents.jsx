@@ -6,23 +6,24 @@ import ShareIcon from '@mui/icons-material/Share';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import StarIcon from '@mui/icons-material/Star';
-import Link from 'next/link';
+// import Link from 'next/link';
+import Nav from 'react-bootstrap/Nav';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useGetSinglePostQuery, useUserDataByEmailQuery } from '@/redux/apiSlice';
+import { usePathname } from 'next/navigation';
 
 const SingleEvents = ({ params }) => {
-    const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
-    // const userEmail = localStorage.getItem('user') || '';
+    const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false;
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     const { data,isLoading } = useGetSinglePostQuery(params)
-    console.log(data)
+    // console.log(data)
     const handleShared = (event) => {
         event.preventDefault();
         toast('Event shared successfully!')
     }
 
-    const locations = window.location.pathname
+    const routerPath = usePathname()
     const handleBook = (event) => {
         event.preventDefault();
         toast('Please login to book an event, thank you!')
@@ -33,7 +34,7 @@ const SingleEvents = ({ params }) => {
             <Container>
                 <Breadcrumb className="text-decoration-none">
                     <Breadcrumb.Item href="/" className="text-decoration-none">Home</Breadcrumb.Item>
-                    <Breadcrumb.Item href={locations} className="text-decoration-none">{locations}</Breadcrumb.Item>
+                    <Breadcrumb.Item href={routerPath} className="text-decoration-none">{routerPath}</Breadcrumb.Item>
                     <Breadcrumb.Item active>book</Breadcrumb.Item>
                 </Breadcrumb>
                 {
@@ -85,9 +86,9 @@ const SingleEvents = ({ params }) => {
                                 {
                                     !userData ? <Button className="btn_filter ms-adgj2" onClick={handleBook}>Book events</Button>
                                         :
-                                        <Link href={`/book/${data?._id}`} className="text-decoration-none">
+                                        <Nav.Link href={`/book/${data?._id}`} className="text-decoration-none">
                                             <Button className="btn_filter ms-adgj2">Book events</Button>
-                                        </Link>
+                                        </Nav.Link>
                                 }
 
                                 <Button className="btn_filter ms-2">$ {data?.price}</Button>
@@ -103,7 +104,7 @@ const SingleEvents = ({ params }) => {
                     </div>
                     <Row>
                         <Col md={4}>
-                            <Link href="/single-events/1">
+                            <Nav.Link href="/single-events/1">
                                 <Card className='se_Img_con bg-white border-0'>
                                     <div className="p-2 se_img_con">
                                         <Card.Img src='/assets/header_four.jpg' className='se_img' />
@@ -119,10 +120,10 @@ const SingleEvents = ({ params }) => {
                                         </span>
                                     </Card.Body>
                                 </Card>
-                            </Link>
+                            </Nav.Link>
                         </Col>
                         <Col md={4}>
-                            <Link href="/single-events/1">
+                            <Nav.Link href="/single-events/1">
                                 <Card className='se_Img_con bg-white border-0'>
                                     <div className="p-2 se_img_con">
                                         <Card.Img src='/assets/header_four.jpg' className='se_img' />
@@ -138,10 +139,10 @@ const SingleEvents = ({ params }) => {
                                         </span>
                                     </Card.Body>
                                 </Card>
-                            </Link>
+                            </Nav.Link>
                         </Col>
                         <Col md={4}>
-                            <Link href="/single-events/1">
+                            <Nav.Link href="/single-events/1">
                                 <Card className='se_Img_con bg-white border-0'>
                                     <div className="p-2 se_img_con">
                                         <Card.Img src='/assets/header_four.jpg' className='se_img' />
@@ -157,7 +158,7 @@ const SingleEvents = ({ params }) => {
                                         </span>
                                     </Card.Body>
                                 </Card>
-                            </Link>
+                            </Nav.Link>
                         </Col>
                     </Row>
 

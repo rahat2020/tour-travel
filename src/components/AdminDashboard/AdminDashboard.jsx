@@ -22,6 +22,8 @@ const AdminDashboard = () => {
     const userEmail = typeof window !== "undefined" ? window.localStorage.getItem('user') || '' : false
     const id = typeof window !== "undefined" ? window.localStorage.getItem('id') || '' : false
     const uId = typeof window !== "undefined" ? window.localStorage.getItem('uId') || '' : false
+
+    // REDUX QUERUIES
     const { data: userData } = useUserDataByEmailQuery(userEmail)
     const { data: allUsers } = useGetAllUsersQuery()
     const [UpdateUser] = useUpdateUserMutation()
@@ -32,24 +34,12 @@ const AdminDashboard = () => {
     const { data: singleEvent } = useGetSinglePostQuery(id)
     const { data: singleUser } = useGetSingleUserQuery(uId)
 
-    console.log('singleEvent', singleUser)
-    const router = useRouter()
-    const handleLogout = (event) => {
-        event.preventDefault();
-        toast('Logout successfully!')
-        localStorage.removeItem("user")
-        localStorage.removeItem("ifura")
-        router.push('/')
-        window.location.reload()
-    }
-    
-    if (!userEmail) {
-        router.push('/')
-    }
+    // console.log('singleEvent', singleUser)
+
 
     // CREATE NEW EVENTS
     const [title, setTitle] = useState("")
-    const [location, setLocation] = useState("")
+    const [Evntlocation, setLocation] = useState("")
     const [phone, setPhone] = useState("")
     const [desc, setDesc] = useState("")
     const [price, setPrice] = useState("")
@@ -78,7 +68,7 @@ const AdminDashboard = () => {
 
             const obj = {
                 title,
-                location,
+                location: Evntlocation,
                 desc,
                 phone,
                 price,
@@ -243,18 +233,35 @@ const AdminDashboard = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = (_id) => {
-        localStorage.setItem('id', _id)
+        typeof window !== "undefined" ? window.localStorage.setItem('id', _id) : false
         setShow(true)
     }
 
+    // SINGLE UISER VIEW
     const [showUser, setShowUser] = useState(false);
     const handleCloseUser = () => setShowUser(false);
-
     const handleShowUser = (_id) => {
-        localStorage.setItem('uId', _id)
+        typeof window !== "undefined" ? window.localStorage.setItem('uId', _id) : false;
         setShowUser(true)
     }
-   
+
+    // LOGOUT
+    const router = useRouter()
+    const handleLogout = (event) => {
+        event.preventDefault();
+        router.push('/')
+        toast('Logout successfully!')
+        typeof window !== "undefined" ? window.localStorage.removeItem("user") : false
+        typeof window !== "undefined" ? window.localStorage.removeItem("ifura") : false
+        typeof window !== "undefined" ? window.location.reload() : false;
+      
+    }
+
+    // IF THERE IS NO USER
+    if (!userEmail) {
+        typeof window !== "undefined" ? window.location.replace("/") : false;
+    }
+
     return (
         <div className="py-5" data-aos="fade-up">
             <Container>
@@ -528,7 +535,7 @@ const AdminDashboard = () => {
                                                 <Col md={6}>
                                                     <Form.Group controlId="formGridLocation">
                                                         <Form.Label className="text-muted">Location</Form.Label>
-                                                        <Form.Control type="text" placeholder="location" className="border-0 shadow-sm rounded text-muted" onChange={(e) => setLocation(e.target.value)} />
+                                                        <Form.Control type="text" placeholder="Event location" className="border-0 shadow-sm rounded text-muted" onChange={(e) => setLocation(e.target.value)} />
                                                     </Form.Group>
                                                 </Col>
                                                 <Col md={6}>
@@ -732,8 +739,8 @@ const AdminDashboard = () => {
                                         <Col md={12}>
                                             <Form.Group controlId="formGridrImage" className="d-flex flex-column justify-content-center align-items-center w-100">
                                                 <Form.Label className="text-muted">Image</Form.Label>
-                                                <Image src={singleUser?.photo ? singleUser?.photo : "/assets/user-1.png"} alt={singleUser?.username} 
-                                                    style={{width:"4rem", height:"4rem",objectFit:'contain'}} loading="lazy"
+                                                <Image src={singleUser?.photo ? singleUser?.photo : "/assets/user-1.png"} alt={singleUser?.username}
+                                                    style={{ width: "4rem", height: "4rem", objectFit: 'contain' }} loading="lazy"
                                                 />
                                             </Form.Group>
                                         </Col>

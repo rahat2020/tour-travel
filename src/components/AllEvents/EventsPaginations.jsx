@@ -5,9 +5,9 @@ import './AllEvents.css';
 import { useState } from "react";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StarIcon from '@mui/icons-material/Star';
-import Link from "next/link";
 import ReactPaginate from 'react-paginate';
 import './Paginations.css';
+import Nav from 'react-bootstrap/Nav';
 
 const EventsPaginations = (props) => {
     const [activeOne, setActiveOne] = useState(true)
@@ -40,7 +40,7 @@ const EventsPaginations = (props) => {
         (item?.price?.toLowerCase().includes(searchQuery.toLowerCase()))
     );
 
-    console.log(filteredData?.length)
+    // console.log(filteredData?.length)
     const handleOne = () => {
         setActiveOne(true)
         setActiveTwo(false)
@@ -201,7 +201,7 @@ const EventsPaginations = (props) => {
                                 {
                                     filteredData?.map((item, i) => (
                                         <Col md={4} key={i}>
-                                            <Link href={`/single-events/${item._id}`} className="text-decoration-none">
+                                            <Nav.Link href={`/single-events/${item._id}`} className="text-decoration-none">
                                                 <Card className='s_Img_con bg-white border-0'>
                                                     <div className="p-2">
                                                         <Card.Img src={item?.photos[0] ? item.photos[0] : '/assets/header_four.jpg'} className='s_img' loading="lazy" />
@@ -218,7 +218,7 @@ const EventsPaginations = (props) => {
                                                         </span>
                                                     </Card.Body>
                                                 </Card>
-                                            </Link>
+                                            </Nav.Link>
                                         </Col>
                                     ))
                                 }

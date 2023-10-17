@@ -2,8 +2,8 @@ import Topbar from '@/components/Topbar/Topbar'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Footer from '@/components/Footer/Footer'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import GotoTop from '@/components/GotoTop/GotoTop';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { StoreProvider } from '@/redux/StoreProvider';
 
 const inter = Inter({ subsets: ['latin'] })

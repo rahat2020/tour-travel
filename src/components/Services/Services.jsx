@@ -5,7 +5,7 @@ import './Services.css';
 import { useState } from "react";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StarIcon from '@mui/icons-material/Star';
-import Link from "next/link";
+import Nav from 'react-bootstrap/Nav';
 import { useGetAllPostQuery } from "@/redux/apiSlice";
 
 const Services = () => {
@@ -159,7 +159,7 @@ const Services = () => {
                                         {
                                             allPoost?.map((item, i) => (
                                                 <Col md={4} key={i}>
-                                                    <Link href={`/single-events/${item._id}`} className="text-decoration-none">
+                                                    <Nav.Link href={`/single-events/${item._id}`} className="text-decoration-none">
                                                         <Card className='s_Img_con bg-white border-0'>
                                                             <div className="p-2">
                                                                 <Card.Img src={item?.photos[0] ? item?.photos[0] : '/assets/header_four.jpg'} className='s_img' />
@@ -175,7 +175,7 @@ const Services = () => {
                                                                 </span>
                                                             </Card.Body>
                                                         </Card>
-                                                    </Link>
+                                                    </Nav.Link>
                                                 </Col>
                                             ))
                                         }
