@@ -7,7 +7,7 @@
 
 ### BELOOW FEATURES ARE IMPLEMENTED IN THE TRAVEL TOUR:
 
-### GLOBAL 
+### GLOBALLY IMPLEMENTED FEATURES
 - Login 
 - Registration in sidebar from topbar right profile icon click and will open sidebar.
 - Protected route ( Admin and user profile and user dashboard)
