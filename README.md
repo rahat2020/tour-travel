@@ -1,11 +1,11 @@
 
-# TRAVEL AND TOUR:
+## TRAVEL AND TOUR:
 
-## DEMOSTRATION VIDEO:- [VIDEO](https://www.loom.com/share/b912d43a00b346d5a8b0bf4971b5fa6a?sid=a3f54156-d742-4bb2-acea-77c195e99120) 
+### DEMOSTRATION VIDEO:- [VIDEO](https://www.loom.com/share/b912d43a00b346d5a8b0bf4971b5fa6a?sid=a3f54156-d742-4bb2-acea-77c195e99120) 
 
-## LIVE WEBSITE - [TRAVEL & TOUR](https://tour-travel-m52n.vercel.app/)
+### LIVE WEBSITE - [TRAVEL & TOUR](https://tour-travel-m52n.vercel.app/)
 
-# IMPLEMENTED ALL FEATURES IN TRAVEL TOUR:
+## IMPLEMENTED ALL FEATURES IN TRAVEL TOUR:
 
 ## GLOBAL 
 - Login 
