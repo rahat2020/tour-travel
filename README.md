@@ -5,14 +5,14 @@
 
 ### LIVE WEBSITE - [TRAVEL & TOUR](https://tour-travel-m52n.vercel.app/)
 
-## IMPLEMENTED ALL FEATURES IN TRAVEL TOUR:
+### BELOOW FEATURES ARE IMPLEMENTED IN THE TRAVEL TOUR:
 
-## GLOBAL 
+### GLOBAL 
 - Login 
 - Registration in sidebar from topbar right profile icon click and will open sidebar.
 - Protected route ( Admin and user profile and user dashboard)
 
-## HOME PAGE FEATURED
+### HOME PAGE FEATURED
 - Home page
 - Navigation Menu
 - Search Bar
@@ -25,21 +25,21 @@
 - Go to top component
 - Detailed Footer
 
-## ALL EVENTS
+### ALL EVENTS
 - Dynamic search bar
 - Filtering options
 - Responsoive events Cards
 - Dynamic data fetching
 - Paginations
 
-## SINGLE EVENTS DETAILS
+### SINGLE EVENTS DETAILS
 - Dynamic single events
 - Events images in slider
 - Events title, location, price, rating, description, phone
 - Share button
 - Book button
 
-## BOOKING PAGE
+### BOOKING PAGE
 - Events images 
 - Events title, location, price, rating, description, phone
 - User details
@@ -47,7 +47,7 @@
 - Event Reserve button
 - Book button
 
-## USER DASHBOARD
+### USER DASHBOARD
 - User activites
 - Update user informations
 - Profile settings 
@@ -56,7 +56,7 @@
 - Feedback form
 - Logout options
 
-## ADMIN DASHBOARD
+### ADMIN DASHBOARD
 - User activites
 - Update user informations
 - User management dynamic 
